@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malik Daily Business System</title>
+<style>
+:root{
+  --nav:#111827;--nav2:#1f2937;--blue:#385f9d;--yellow:#fff200;--red:#ef1111;
+  --cyan:#0ea5d8;--green:#9bd760;--bg:#f3f5f8;--card:#fff;--line:#d7dde7;
+  --text:#172033;--muted:#667085;--success:#087a55;--danger:#b42318;--warning:#b54708;
+  --shadow:0 8px 24px rgba(16,24,40,.07)
+}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}.app{min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:255px;background:var(--nav);color:#fff;padding:20px 14px;z-index:20;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:12px;padding:4px 8px 22px}.brand-badge{width:48px;height:48px;border-radius:13px;background:#b42318;display:grid;place-items:center;font-size:20px;font-weight:800}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:#a9b2c1;font-size:12px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#aab4c4;padding:12px 13px;border-radius:9px;text-align:left;cursor:pointer}.nav button:hover,.nav button.active{background:var(--nav2);color:#fff}.sidebar-note{margin-top:auto;color:#9ca3af;font-size:12px;padding:10px 8px}.main{margin-left:255px;padding:25px;min-height:100vh}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.topbar h2{margin:0;font-size:27px}.topbar p{margin:4px 0 0;color:var(--muted)}.menu-btn{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px}.page{display:none}.page.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.card{padding:18px}.card span{display:block;color:var(--muted);font-size:13px;margin-bottom:10px}.card strong{font-size:21px}.panel{padding:18px;margin-bottom:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.panel-head h3{margin:0;font-size:18px}.sheet-title{text-align:center;border:1px solid #333;background:#fff;margin-bottom:0}.sheet-title h3{margin:8px 0 0;color:#385f9d;font-size:28px;font-weight:500}.sheet-title h4{margin:0;padding:0 0 8px;background:var(--yellow);font-size:25px;font-weight:500;color:#385f9d}.form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.form-grid.two-col{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid.one-col{grid-template-columns:1fr}.form-grid label{display:grid;gap:6px;font-size:12px;font-weight:700;color:#344054}.wide{grid-column:1/-1}input,select,textarea{width:100%;min-height:40px;padding:9px 10px;border:1px solid #cfd6e1;border-radius:8px;background:#fff;outline:none}textarea{min-height:74px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#385f9d;box-shadow:0 0 0 3px rgba(56,95,157,.12)}.actions,.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.btn{border:0;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:700}.btn.primary{background:#385f9d;color:#fff}.btn.success{background:#087a55;color:#fff}.btn.secondary{background:#eef1f5;color:#344054}.btn.danger{background:#fee4e2;color:#b42318}.btn.small{padding:5px 8px;font-size:11px}.table-wrap{overflow:auto}.sheet-table{width:100%;border-collapse:collapse;white-space:nowrap}.sheet-table th,.sheet-table td{border:1px solid #667085;padding:8px 7px;font-size:12px;text-align:left}.sheet-table th{background:var(--blue);color:#fff;text-align:center;font-size:13px}.purchase-row td{background:#f3dddd}.sale-row td{background:#cef0cf}.daily-total{background:var(--green)!important;font-weight:800;text-align:right!important}.amount{text-align:right!important}.center{text-align:center!important}.empty td{text-align:center!important;color:var(--muted);padding:26px!important;background:#fff!important}.summary-strip{display:flex;gap:24px;flex-wrap:wrap;background:#f8fafc;border-radius:9px;padding:11px 13px;margin:0 0 13px;font-size:13px}.two-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}.daybook-title{text-align:center;border:1px solid #222;font-size:25px;font-weight:800;padding:14px;background:#fff}.daybook-columns{display:grid;grid-template-columns:1fr 1fr}.daybook-side h3{text-align:center;margin:0;padding:8px;font-size:24px;font-weight:500;letter-spacing:2px}.daybook-side.receipt h3{background:var(--cyan)}.daybook-side.payment h3{background:var(--red);color:#000}.daybook-table th{background:var(--cyan);color:#000}.payment .daybook-table th{background:var(--red)}.daybook-table{width:100%;border-collapse:collapse}.daybook-table td,.daybook-table th{border:1px solid #222;padding:7px;font-size:12px}.daybook-table th{text-align:center}.daybook-foot{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:14px}.metric-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:13px}.metric-box label{display:grid;gap:6px;font-size:12px;font-weight:700}.metric-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}.metric-line:last-child{border-bottom:0}.badge{display:inline-block;padding:4px 8px;border-radius:99px;font-size:11px;font-weight:700}.badge.paid,.badge.receipt,.badge.debtor{background:#dcfae6;color:#087a55}.badge.pending,.badge.payment,.badge.creditor{background:#fef0c7;color:#b54708}.badge.partial{background:#dbeafe;color:#175cd3}.positive{color:var(--success);font-weight:800}.negative{color:var(--danger);font-weight:800}.report-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:15px}.report-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px}.report-card span{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}.report-card strong{font-size:19px}input[readonly]{background:#f2f4f7;font-weight:800}.report-card:has(#reportNetProfit){border:2px solid #385f9d}.field-note{display:block;margin-top:5px;color:#667085;font-size:11px;font-weight:500}.cash-close-control{display:flex;flex-direction:column;justify-content:flex-end;gap:6px}.cash-close-control .btn{width:100%;min-height:42px}.section-title{margin:18px 0 10px;font-size:17px}.report-table{width:100%;border-collapse:collapse}.report-table th,.report-table td{border:1px solid var(--line);padding:8px;font-size:12px}.report-table th{background:#eaf0f8}.toast{position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;padding:12px 15px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:50}.toast.show{opacity:1;transform:none}.auto-tag{display:inline-block;padding:4px 7px;border-radius:99px;background:#eaf0f8;color:#385f9d;font-size:10px;font-weight:800}.hidden{display:none!important}@media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.report-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:780px){.sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none}.main{margin-left:0;padding:15px}.menu-btn{display:block}.cards,.form-grid,.two-panels,.daybook-columns,.report-grid{grid-template-columns:1fr}.panel-head{align-items:flex-start;flex-direction:column}.toolbar{width:100%}.toolbar>*{flex:1 1 160px}.sheet-title h3{font-size:23px}.sheet-title h4{font-size:22px}.daybook-foot{grid-template-columns:1fr}}
+@media print{.sidebar,.topbar,.no-print,.btn,.toolbar{display:none!important}.main{margin:0;padding:0}.page{display:none!important}#reports.page.active{display:block!important}.panel{box-shadow:none;border:0}.report-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-badge">MG</div><div><h1>Malik Business</h1><p>Daily Management System</p></div></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="dashboard">Dashboard</button>
+    <button data-page="purchases">Inventory Purchase</button>
+    <button data-page="inventorySales">Inventory Sale</button>
+    <button data-page="customerLedger">Customer Sales Ledger</button>
+    <button data-page="daybook">Day Book Branch</button>
+    <button data-page="parties">Creditors & Debtors</button>
+    <button data-page="vehicles">Daily Vehicle Expense</button>
+    <button data-page="stock">Stock Management</button>
+    <button data-page="salaries">Salaries Ledger</button>
+    <button data-page="reports">Monthly Profit & Report</button>
+    <button data-page="backup">Backup & Restore</button>
+  </nav>
+  <div class="sidebar-note">Data is stored in this browser. Download backups regularly.</div>
+</aside>
+<main class="main">
+  <header class="topbar"><div><h2 id="pageTitle">Dashboard</h2><p id="todayText"></p></div><button class="menu-btn" id="menuBtn">☰</button></header>
+
+  <section class="page active" id="dashboard">
+    <div class="cards">
+      <div class="card"><span>Today Purchase</span><strong id="dashTodayPurchase">AED 0.00</strong></div>
+      <div class="card"><span>Today Sale</span><strong id="dashTodaySale">AED 0.00</strong></div>
+      <div class="card"><span>Today Closing Cash</span><strong id="dashClosingCash">AED 0.00</strong></div>
+      <div class="card"><span>Today Vehicle Expense</span><strong id="dashVehicleExpense">AED 0.00</strong></div>
+      <div class="card"><span>Current Debtors</span><strong id="dashDebtors">AED 0.00</strong></div>
+      <div class="card"><span>Current Creditors</span><strong id="dashCreditors">AED 0.00</strong></div>
+      <div class="card"><span>This Month Purchase</span><strong id="dashMonthPurchase">AED 0.00</strong></div>
+      <div class="card"><span>This Month Sale</span><strong id="dashMonthSale">AED 0.00</strong></div>
+      <div class="card"><span>Current Stock Value</span><strong id="dashStockValue">AED 0.00</strong></div>
+      <div class="card"><span>This Month Net Profit</span><strong id="dashMonthProfit">AED 0.00</strong></div>
+      <div class="card"><span>Salary Outstanding</span><strong id="dashSalaryOutstanding">AED 0.00</strong></div>
+    </div>
+    <div class="two-panels">
+      <article class="panel"><div class="panel-head"><h3>Recent Purchases</h3></div><div class="table-wrap"><table class="report-table"><thead><tr><th>Date</th><th>Bill</th><th>Item</th><th>Qty</th><th>Amount</th></tr></thead><tbody id="recentPurchases"></tbody></table></div></article>
+      <article class="panel"><div class="panel-head"><h3>Recent Customer Ledger Entries</h3></div><div class="table-wrap"><table class="report-table"><thead><tr><th>Date</th><th>Customer</th><th>Particular</th><th>Credit</th><th>Debit</th></tr></thead><tbody id="recentCustomerLedger"></tbody></table></div></article>
+    </div>
+  </section>
+
+  <section class="page" id="purchases">
+    <div class="sheet-title"><h3>INVENTORY</h3><h4>PURCHASE</h4></div>
+    <article class="panel">
+      <form id="purchaseForm" class="form-grid">
+        <input type="hidden" id="purchaseId">
+        <label>Bill No<input id="purchaseBill" required></label>
+        <label>Date<input type="date" id="purchaseDate" required></label>
+        <label>Purchase Type<select id="purchaseType" required><option>CASH PURCHASE</option><option>CREDIT PURCHASE</option></select></label>
+        <label>Supplier / Name<input id="purchaseSupplier" placeholder="Required for credit purchase"></label>
+        <label>Item<input list="itemList" id="purchaseItem" required></label>
+        <label>Qty / Weight<input type="number" min="0" step="0.001" id="purchaseQty" required></label>
+        <label>Rate<input type="number" min="0" step="0.001" id="purchaseRate" required></label>
+        <label>Amount<input type="number" min="0" step="0.01" id="purchaseAmount" required></label>
+        <label class="wide">Remarks<input id="purchaseRemarks"></label>
+        <div class="actions wide"><button class="btn primary">Save Purchase</button><button type="button" class="btn secondary" id="purchaseCancel">Cancel Edit</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-head"><h3>Daily Purchase Records</h3><div class="toolbar"><input type="date" id="purchaseFilterDate"><input id="purchaseSearch" placeholder="Search bill or item"><button class="btn secondary" id="purchaseClear">Show All</button><button class="btn secondary" data-export="purchases">Export CSV</button></div></div>
+      <div class="summary-strip"><span>Total Qty: <strong id="purchaseTotalQty">0.00</strong></span><span>Total Amount: <strong id="purchaseTotalAmount">AED 0.00</strong></span></div>
+      <div class="table-wrap"><table class="sheet-table"><thead><tr><th>BILL NO</th><th>DATE</th><th>TYPE</th><th>SUPPLIER / NAME</th><th>ITEMS</th><th>QTY</th><th>RATE</th><th>AMOUNT</th><th>TOTAL</th><th>REMARKS</th><th>ACTIONS</th></tr></thead><tbody id="purchaseBody"></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="page" id="inventorySales">
+    <div class="sheet-title"><h3>INVENTORY</h3><h4>SALE</h4></div>
+    <article class="panel">
+      <form id="inventorySaleForm" class="form-grid">
+        <input type="hidden" id="inventorySaleId">
+        <label>Bill No<input id="inventorySaleBill" required></label>
+        <label>Date<input type="date" id="inventorySaleDate" required></label>
+        <label>Sale Type
+          <select id="inventorySaleType" required>
+            <option>CASH SALE</option>
+            <option>CREDIT SALE</option>
+          </select>
+        </label>
+        <label>Customer / Name
+          <input id="inventorySaleCustomer" placeholder="Required for credit sale">
+          <small class="field-note">Credit sales automatically create a debtor record.</small>
+        </label>
+        <label>Item<input list="itemList" id="inventorySaleItem" required></label>
+        <label>Qty / Weight<input type="number" min="0" step="0.001" id="inventorySaleQty" required></label>
+        <label>Rate<input type="number" min="0" step="0.001" id="inventorySaleRate" required></label>
+        <label>Amount<input type="number" min="0" step="0.01" id="inventorySaleAmount" required></label>
+        <label class="wide">Remarks<input id="inventorySaleRemarks"></label>
+        <div class="actions wide"><button class="btn success">Save Sale</button><button type="button" class="btn secondary" id="inventorySaleCancel">Cancel Edit</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-head"><h3>Daily Sale Records</h3><div class="toolbar"><input type="date" id="inventorySaleFilterDate"><input id="inventorySaleSearch" placeholder="Search bill or item"><button class="btn secondary" id="inventorySaleClear">Show All</button><button class="btn secondary" data-export="inventorySales">Export CSV</button></div></div>
+      <div class="summary-strip"><span>Total Qty: <strong id="inventorySaleTotalQty">0.00</strong></span><span>Total Amount: <strong id="inventorySaleTotalAmount">AED 0.00</strong></span></div>
+      <div class="table-wrap"><table class="sheet-table"><thead><tr><th>BILL NO</th><th>DATE</th><th>TYPE</th><th>CUSTOMER / NAME</th><th>ITEMS</th><th>QTY</th><th>RATE</th><th>AMOUNT</th><th>TOTAL</th><th>REMARKS</th><th>ACTIONS</th></tr></thead><tbody id="inventorySaleBody"></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="page" id="customerLedger">
+    <article class="panel">
+      <form id="customerLedgerForm" class="form-grid">
+        <input type="hidden" id="customerLedgerId">
+        <label>Customer Name<input id="customerName" required></label>
+        <label>Mobile No<input id="customerMobile"></label>
+        <label>Date<input type="date" id="customerDate" required></label>
+        <label>Vehicle No<input id="customerVehicle"></label>
+        <label>Driver Name<input id="customerDriver"></label>
+        <label>PO / Invoice No<input id="customerInvoice"></label>
+        <label>Ticket No<input id="customerTicket"></label>
+        <label>Particulars<input list="itemList" id="customerParticular" required></label>
+        <label>Weight<input type="number" min="0" step="0.001" id="customerWeight"></label>
+        <label>Price / Kg<input type="number" min="0" step="0.001" id="customerPrice"></label>
+        <label>Deduction<input type="number" min="0" step="0.01" id="customerDeduction" value="0"></label>
+        <label>Debit Amount<input type="number" min="0" step="0.01" id="customerDebit" value="0"></label>
+        <label>Credit Amount<input type="number" min="0" step="0.01" id="customerCredit" value="0"></label>
+        <label class="wide">Remarks<input id="customerRemarks"></label>
+        <div class="actions wide"><button class="btn primary">Save Ledger Entry</button><button type="button" class="btn secondary" id="customerLedgerCancel">Cancel Edit</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-head"><div><h3>Customer Sales Ledger</h3><small id="customerHeaderText"></small></div><div class="toolbar"><select id="customerFilter"></select><input type="month" id="customerMonthFilter"><button class="btn secondary" id="customerClear">Show All</button><button class="btn secondary" data-export="customerLedger">Export CSV</button></div></div>
+      <div class="summary-strip"><span>Total Credit: <strong id="customerTotalCredit">AED 0.00</strong></span><span>Total Debit: <strong id="customerTotalDebit">AED 0.00</strong></span><span>Closing Balance: <strong id="customerClosingBalance">AED 0.00</strong></span></div>
+      <div class="table-wrap"><table class="sheet-table"><thead><tr><th>DATE</th><th>VEHICLE NO.</th><th>DRIVER NAME</th><th>PO INVOICE NO</th><th>TICKET NO.</th><th>PARTICULARS</th><th>WEIGHT</th><th>PRICE/KG</th><th>DEDUCTION</th><th>DEBIT AMOUNT</th><th>CREDIT AMOUNT</th><th>BALANCE</th><th>ACTIONS</th></tr></thead><tbody id="customerLedgerBody"></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="page" id="daybook">
+    <div class="daybook-title">DAY BOOK BRANCH</div>
+    <article class="panel no-print">
+      <div class="panel-head"><h3>Day Selection and Cash Control</h3><div class="toolbar"><input type="date" id="daybookSelectedDate"><button class="btn secondary" data-export="daybook">Export CSV</button></div></div>
+      <div class="form-grid two-col">
+        <label>Opening Cash
+          <input type="number" step="0.01" id="openingCash">
+          <small id="openingCashSource" class="field-note">Enter the first day opening cash manually.</small>
+        </label>
+        <label>Physical Cash
+          <input type="number" step="0.01" id="physicalCash">
+          <small class="field-note">Actual cash counted at the end of the day.</small>
+        </label>
+        <label>Calculated Closing Cash
+          <input type="number" step="0.01" id="calculatedClosingCash" readonly>
+          <small class="field-note">Opening cash + receipts − cash payments.</small>
+        </label>
+        <div class="cash-close-control">
+          <button type="button" class="btn primary" id="closeDayBtn">Close Day & Carry Forward</button>
+          <small id="dayCloseStatus" class="field-note">The closing cash will become the next day’s opening cash.</small>
+        </div>
+      </div>
+    </article>
+    <div class="daybook-columns">
+      <div class="daybook-side receipt">
+        <h3>RECEIPT</h3>
+        <article class="panel">
+          <form id="receiptForm" class="form-grid one-col no-print">
+            <input type="hidden" id="receiptId">
+            <label>Category<select id="receiptCategory"><option>OPENING CASH</option><option>CASH SALES</option><option>BY STORE</option><option>BY GT</option><option>BY MT</option><option>OTHER RECEIPT</option></select></label>
+            <label>Amount<input type="number" min="0" step="0.01" id="receiptAmount" required></label>
+            <label>Name<input id="receiptName"></label>
+            <label>Remarks<input id="receiptRemarks"></label>
+            <div class="actions"><button class="btn primary">Save Receipt</button><button type="button" class="btn secondary" id="receiptCancel">Cancel</button></div>
+          </form>
+          <div class="table-wrap"><table class="daybook-table"><thead><tr><th>CATEGORY</th><th>AMOUNT</th><th>NAME</th><th>REMARKS</th><th class="no-print">ACTION</th></tr></thead><tbody id="receiptBody"></tbody></table></div>
+        </article>
+      </div>
+      <div class="daybook-side payment">
+        <h3>PAYMENT</h3>
+        <article class="panel">
+          <form id="paymentForm" class="form-grid one-col no-print">
+            <input type="hidden" id="paymentId">
+            <label>Category<select id="paymentCategory"><option>CASH PURCHASE</option><option>CREDIT PURCHASE</option><option>TO STORE</option><option>TO GT</option><option>TO MT</option><option>VEHICLE EXPENSE</option><option>FUEL</option><option>SALARY</option><option>OTHER PAYMENT</option></select></label>
+            <label>Amount<input type="number" min="0" step="0.01" id="paymentAmount" required></label>
+            <label>Name<input id="paymentName"></label>
+            <label>Remarks<input id="paymentRemarks"></label>
+            <div class="actions"><button class="btn danger">Save Payment</button><button type="button" class="btn secondary" id="paymentCancel">Cancel</button></div>
+          </form>
+          <div class="table-wrap"><table class="daybook-table"><thead><tr><th>CATEGORY</th><th>AMOUNT</th><th>NAME</th><th>REMARKS</th><th class="no-print">ACTION</th></tr></thead><tbody id="paymentBody"></tbody></table></div>
+        </article>
+      </div>
+    </div>
+    <div class="daybook-foot">
+      <div class="metric-box"><div class="metric-line"><span>Total Receipt</span><strong id="dayTotalReceipt">AED 0.00</strong></div><div class="metric-line"><span>Cash Payments</span><strong id="dayCashPayment">AED 0.00</strong></div><div class="metric-line"><span>Credit Purchases</span><strong id="dayCreditPurchase">AED 0.00</strong></div><div class="metric-line"><span>Total Payment Entries</span><strong id="dayTotalPayment">AED 0.00</strong></div><div class="metric-line"><span>Closing Cash Balance</span><strong id="dayClosingBalance">AED 0.00</strong></div></div>
+      <div class="metric-box"><div class="metric-line"><span>Opening Cash</span><strong id="dayOpeningDisplay">AED 0.00</strong></div><div class="metric-line"><span>Physical Cash</span><strong id="dayPhysicalDisplay">AED 0.00</strong></div><div class="metric-line"><span>Saved Closing Cash</span><strong id="daySavedClosing">Not closed</strong></div><div class="metric-line"><span>Cash Difference</span><strong id="dayCashDifference">AED 0.00</strong></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="parties">
+    <article class="panel">
+      <form id="partyForm" class="form-grid">
+        <input type="hidden" id="partyId">
+        <label>Date<input type="date" id="partyDate" required></label>
+        <label>Bill No<input id="partyBill" required></label>
+        <label>Name<input id="partyName" required></label>
+        <label>Type<select id="partyType"><option>Debtor</option><option>Creditor</option></select></label>
+        <label>Bill Amount<input type="number" min="0" step="0.01" id="partyAmount" required></label>
+        <label>Paid Amount<input type="number" min="0" step="0.01" id="partyPaidAmount" value="0"></label>
+        <label>Paid Date<input type="date" id="partyPaidDate"></label>
+        <label>Payment Bill / Voucher<input id="partyPaymentBill"></label>
+        <label>Paid Name / Received From<input id="partyPaidName"></label>
+        <label class="wide">Remarks<input id="partyRemarks"></label>
+        <div class="actions wide"><button class="btn primary">Save Record</button><button type="button" class="btn secondary" id="partyCancel">Cancel Edit</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-head"><div><h3>CREDIT PURCHASES & CREDIT SALES</h3><small>Credit purchases are added as creditors. Credit sales are added as debtors automatically.</small></div><div class="toolbar"><input type="month" id="partyMonthFilter"><select id="partyTypeFilter"><option value="">All</option><option>Debtor</option><option>Creditor</option></select><input id="partySearch" placeholder="Search bill or name"><button class="btn secondary" id="partyClear">Show All</button><button class="btn secondary" data-export="parties">Export CSV</button></div></div>
+      <div class="summary-strip"><span>Outstanding Debtors: <strong id="partyDebtorTotal">AED 0.00</strong></span><span>Outstanding Creditors: <strong id="partyCreditorTotal">AED 0.00</strong></span></div>
+      <div class="table-wrap"><table class="sheet-table"><thead><tr><th>DATE</th><th>BILL NO</th><th>NAME</th><th>TYPE</th><th>AMOUNT</th><th>STATUS</th><th>PAID DATE</th><th>PAYMENT BILL</th><th>PAID NAME</th><th>PAID AMOUNT</th><th>OUTSTANDING</th><th>REMARKS</th><th>ACTIONS</th></tr></thead><tbody id="partyBody"></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="page" id="vehicles">
+    <div class="sheet-title"><h4 style="padding:10px;color:#000">DAILY VEHICLE EXPENSE</h4></div>
+    <article class="panel">
+      <form id="vehicleForm" class="form-grid">
+        <input type="hidden" id="vehicleId">
+        <label>Date<input type="date" id="vehicleDate" required></label>
+        <label>Car / Vehicle Number<input id="vehicleNumber" required></label>
+        <label>Driver<input id="vehicleDriver"></label>
+        <label>Category<select id="vehicleCategory"><option>Fuel</option><option>Maintenance</option><option>Tyre</option><option>Fine</option><option>Salik / Toll</option><option>Repair</option><option>Other</option></select></label>
+        <label class="wide">Particulars<input id="vehicleParticulars" required></label>
+        <label>Amount<input type="number" min="0" step="0.01" id="vehicleAmount" required></label>
+        <label class="wide">Remarks<input id="vehicleRemarks"></label>
+        <div class="actions wide"><button class="btn primary">Save Expense</button><button type="button" class="btn secondary" id="vehicleCancel">Cancel Edit</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-head"><h3>Vehicle Expense Records</h3><div class="toolbar"><input type="date" id="vehicleFilterDate"><input id="vehicleSearch" placeholder="Search vehicle or particulars"><button class="btn secondary" id="vehicleClear">Show All</button><button class="btn secondary" data-export="vehicles">Export CSV</button></div></div>
+      <div class="summary-strip"><span>Total Vehicle Expense: <strong id="vehicleTotal">AED 0.00</strong></span></div>
+      <div class="table-wrap"><table class="sheet-table"><thead><tr><th>DATE</th><th>CAR NUMBER</th><th>DRIVER</th><th>CATEGORY</th><th>PARTICULARS</th><th>AMOUNT</th><th>REMARKS</th><th>ACTIONS</th></tr></thead><tbody id="vehicleBody"></tbody></table></div>
+    </article>
+  </section>
+
+
+  <section class="page" id="stock">
+    <div class="sheet-title"><h3>STOCK</h3><h4>MANAGEMENT</h4></div>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Manual Stock Adjustment</h3>
+          <small>Purchases and sales update stock automatically. Use this form for opening stock, corrections, increases, reductions, damage or loss.</small>
+        </div>
+      </div>
+      <form id="stockAdjustmentForm" class="form-grid">
+        <input type="hidden" id="stockAdjustmentId">
+        <label>Date<input type="date" id="stockAdjustmentDate" required></label>
+        <label>Item<input list="itemList" id="stockAdjustmentItem" required></label>
+        <label>Adjustment Type
+          <select id="stockAdjustmentType" required>
+            <option>OPENING STOCK</option>
+            <option>STOCK INCREASE</option>
+            <option>STOCK REDUCTION</option>
+            <option>DAMAGE / LOSS</option>
+          </select>
+        </label>
+        <label>Quantity / Weight<input type="number" min="0.001" step="0.001" id="stockAdjustmentQty" required></label>
+        <label>Cost Rate / Kg<input type="number" min="0" step="0.001" id="stockAdjustmentRate" value="0"></label>
+        <label>Reference / Voucher<input id="stockAdjustmentReference"></label>
+        <label class="wide">Remarks<input id="stockAdjustmentRemarks"></label>
+        <div class="actions wide">
+          <button class="btn primary">Save Manual Adjustment</button>
+          <button type="button" class="btn secondary" id="stockAdjustmentCancel">Cancel Edit</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h3>Current Stock Summary</h3>
+        <div class="toolbar">
+          <label style="font-size:12px;font-weight:700">Stock As Of<input type="date" id="stockAsOfDate"></label>
+          <input id="stockSearch" placeholder="Search item">
+          <button class="btn secondary" data-export="stock">Export Stock CSV</button>
+        </div>
+      </div>
+      <div class="summary-strip">
+        <span>Total Stock Quantity: <strong id="stockTotalQty">0.00</strong></span>
+        <span>Estimated Stock Value: <strong id="stockTotalValue">AED 0.00</strong></span>
+        <span>Negative Stock Items: <strong id="stockNegativeItems">0</strong></span>
+      </div>
+      <div class="table-wrap">
+        <table class="sheet-table">
+          <thead>
+            <tr><th>ITEM</th><th>AUTO PURCHASE QTY</th><th>AUTO SALE QTY</th><th>MANUAL NET QTY</th><th>CLOSING QTY</th><th>AVERAGE COST</th><th>STOCK VALUE</th><th>STATUS</th></tr>
+          </thead>
+          <tbody id="stockBody"></tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h3>Manual Adjustment History</h3>
+        <div class="toolbar">
+          <input type="date" id="stockAdjustmentFilterDate">
+          <input id="stockAdjustmentSearch" placeholder="Search item or reference">
+          <button class="btn secondary" id="stockAdjustmentClear">Show All</button>
+          <button class="btn secondary" data-export="stockAdjustments">Export Adjustments</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="sheet-table">
+          <thead>
+            <tr><th>DATE</th><th>ITEM</th><th>TYPE</th><th>QTY</th><th>COST RATE</th><th>REFERENCE</th><th>REMARKS</th><th>ACTIONS</th></tr>
+          </thead>
+          <tbody id="stockAdjustmentBody"></tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <section class="page" id="salaries">
+    <div class="sheet-title"><h3>EMPLOYEE</h3><h4>SALARIES LEDGER</h4></div>
+
+    <article class="panel">
+      <form id="salaryForm" class="form-grid">
+        <input type="hidden" id="salaryId">
+        <label>Salary Month<input type="month" id="salaryMonth" required></label>
+        <label>Employee Name<input id="salaryEmployee" required></label>
+        <label>Employee ID<input id="salaryEmployeeId"></label>
+        <label>Designation<input id="salaryDesignation"></label>
+        <label>Basic Salary<input type="number" min="0" step="0.01" id="salaryBasic" required></label>
+        <label>Overtime<input type="number" min="0" step="0.01" id="salaryOvertime" value="0"></label>
+        <label>Allowance / Tips<input type="number" min="0" step="0.01" id="salaryAllowance" value="0"></label>
+        <label>Deduction<input type="number" min="0" step="0.01" id="salaryDeduction" value="0"></label>
+        <label>Advance Deduction<input type="number" min="0" step="0.01" id="salaryAdvance" value="0"></label>
+        <label>Net Salary<input type="number" min="0" step="0.01" id="salaryNet" readonly></label>
+        <label>Paid Amount<input type="number" min="0" step="0.01" id="salaryPaid" value="0"></label>
+        <label>Payment Date<input type="date" id="salaryPaymentDate"></label>
+        <label>Payment Method<select id="salaryPaymentMethod"><option>Cash</option><option>Bank</option><option>Exchange</option><option>Other</option></select></label>
+        <label class="wide">Remarks<input id="salaryRemarks"></label>
+        <div class="actions wide">
+          <button class="btn primary">Save Salary</button>
+          <button type="button" class="btn secondary" id="salaryCancel">Cancel Edit</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h3>Salary Records</h3>
+        <div class="toolbar">
+          <input type="month" id="salaryMonthFilter">
+          <input id="salarySearch" placeholder="Search employee or ID">
+          <button class="btn secondary" id="salaryClear">Show All</button>
+          <button class="btn secondary" data-export="salaries">Export CSV</button>
+        </div>
+      </div>
+      <div class="summary-strip">
+        <span>Gross Salary: <strong id="salaryGrossTotal">AED 0.00</strong></span>
+        <span>Net Salary: <strong id="salaryNetTotal">AED 0.00</strong></span>
+        <span>Paid: <strong id="salaryPaidTotal">AED 0.00</strong></span>
+        <span>Outstanding: <strong id="salaryOutstandingTotal">AED 0.00</strong></span>
+      </div>
+      <div class="table-wrap">
+        <table class="sheet-table">
+          <thead>
+            <tr><th>MONTH</th><th>EMPLOYEE</th><th>ID</th><th>DESIGNATION</th><th>BASIC</th><th>OVERTIME</th><th>ALLOWANCE</th><th>DEDUCTION</th><th>ADVANCE</th><th>NET SALARY</th><th>PAID</th><th>OUTSTANDING</th><th>STATUS</th><th>PAYMENT DATE</th><th>METHOD</th><th>REMARKS</th><th>ACTIONS</th></tr>
+          </thead>
+          <tbody id="salaryBody"></tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <section class="page" id="reports">
+    <article class="panel"><div class="panel-head"><div><h3>Monthly Business Report</h3><small>Select a month to prepare the complete report.</small></div><div class="toolbar"><input type="month" id="reportMonth"><button class="btn primary" id="printReport">Print / Save PDF</button><button class="btn secondary" id="exportMonthlyReport">Export Monthly CSV</button></div></div>
+      <div class="report-grid">
+        <div class="report-card"><span>Sales Revenue</span><strong id="reportSaleValue">AED 0.00</strong></div>
+        <div class="report-card"><span>Cost of Goods Sold</span><strong id="reportCOGS">AED 0.00</strong></div>
+        <div class="report-card"><span>Gross Profit</span><strong id="reportGrossProfit">AED 0.00</strong></div>
+        <div class="report-card"><span>Salary Expense</span><strong id="reportSalaryExpense">AED 0.00</strong></div>
+        <div class="report-card"><span>Vehicle Expense</span><strong id="reportVehicleExpense">AED 0.00</strong></div>
+        <div class="report-card"><span>Other Operating Expense</span><strong id="reportOtherExpense">AED 0.00</strong></div>
+        <div class="report-card"><span>Stock Loss / Damage</span><strong id="reportStockLoss">AED 0.00</strong></div>
+        <div class="report-card"><span>NET PROFIT</span><strong id="reportNetProfit">AED 0.00</strong></div>
+        <div class="report-card"><span>Closing Stock Value</span><strong id="reportClosingStockValue">AED 0.00</strong></div>
+        <div class="report-card"><span>Purchase Value</span><strong id="reportPurchaseValue">AED 0.00</strong></div>
+        <div class="report-card"><span>Purchase Quantity</span><strong id="reportPurchaseQty">0.00</strong></div>
+        <div class="report-card"><span>Sale Quantity</span><strong id="reportSaleQty">0.00</strong></div>
+        <div class="report-card"><span>Receipt</span><strong id="reportReceipts">AED 0.00</strong></div>
+        <div class="report-card"><span>Daybook Payment Entries</span><strong id="reportPayments">AED 0.00</strong></div>
+        <div class="report-card"><span>Closing Cash</span><strong id="reportClosingCash">AED 0.00</strong></div>
+        <div class="report-card"><span>Customer Ledger Balance</span><strong id="reportCustomerBalance">AED 0.00</strong></div>
+      </div>
+      <h4 class="section-title">Item-wise Stock Summary</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Item</th><th>Opening Qty</th><th>Purchase Qty</th><th>Manual Net Qty</th><th>Sale Qty</th><th>Closing Qty</th><th>Average Cost</th><th>Closing Value</th><th>Sales Value</th></tr></thead><tbody id="reportItemBody"></tbody></table></div>
+      <h4 class="section-title">Salary Summary</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Employee</th><th>Basic</th><th>Overtime</th><th>Allowance</th><th>Deductions</th><th>Net Salary</th><th>Paid</th><th>Outstanding</th></tr></thead><tbody id="reportSalaryBody"></tbody></table></div>
+      <h4 class="section-title">Customer-wise Ledger Summary</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Customer</th><th>Total Credit</th><th>Total Debit</th><th>Closing Balance</th></tr></thead><tbody id="reportCustomerBody"></tbody></table></div>
+      <h4 class="section-title">Daybook Category Summary</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Side</th><th>Category</th><th>Total</th></tr></thead><tbody id="reportDaybookBody"></tbody></table></div>
+      <h4 class="section-title">Vehicle-wise Expense Summary</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Vehicle</th><th>Transactions</th><th>Total Expense</th></tr></thead><tbody id="reportVehicleBody"></tbody></table></div>
+      <h4 class="section-title">Outstanding Creditors & Debtors</h4><div class="table-wrap"><table class="report-table"><thead><tr><th>Type</th><th>Name</th><th>Bill No</th><th>Bill Amount</th><th>Paid</th><th>Outstanding</th><th>Status</th></tr></thead><tbody id="reportPartyBody"></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="page" id="backup">
+    <article class="panel"><div class="panel-head"><h3>Backup & Restore</h3></div><p>Download a full backup before changing your browser or computer.</p><div class="actions"><button class="btn primary" id="downloadBackup">Download Backup</button><label class="btn secondary">Restore Backup<input type="file" id="restoreBackup" accept=".json" hidden></label><button class="btn danger" id="clearAllData">Clear All Data</button></div></article>
+  </section>
+</main>
+</div>
+<datalist id="itemList"><option>HMS</option><option>HMS SUPER</option><option>LMS</option><option>LMS CLEAN</option><option>PNS</option><option>BRASS</option><option>ZINC</option><option>MOTOR</option><option>PEPSI</option><option>WIRE</option><option>AC IN/OUT</option><option>ALM MIX</option><option>ALUMINIUM</option><option>CLEAN COPPER</option><option>COPPER CABLE</option><option>SS 304</option><option>STAINLESS STEEL</option></datalist>
+<div class="toast" id="toast"></div>
+<script>
+(()=>{"use strict";
+const KEY="malikDailyBusinessSystemV1";
+const blank={purchases:[],inventorySales:[],customerLedger:[],daybook:[],dayCash:{},parties:[],vehicles:[],stockAdjustments:[],salaries:[]};
+let db=load();
+const $=id=>document.getElementById(id),num=v=>Number(v)||0,uid=()=>`${Date.now()}-${Math.random().toString(16).slice(2)}`,today=()=>new Date().toISOString().slice(0,10),monthNow=()=>today().slice(0,7);
+const money=v=>"AED "+num(v).toLocaleString("en-AE",{minimumFractionDigits:2,maximumFractionDigits:2});
+const qty=v=>num(v).toLocaleString("en-AE",{minimumFractionDigits:2,maximumFractionDigits:3});
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function load(){try{return {...blank,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch{return structuredClone(blank)}}
+function save(msg){syncClosedCashCarry();localStorage.setItem(KEY,JSON.stringify(db));renderAll();if(msg)toast(msg)}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>$("toast").classList.remove("show"),2300)}
+function empty(cols,text){return `<tr class="empty"><td colspan="${cols}">${esc(text)}</td></tr>`}
+function sortDateAsc(a,b){return String(a.date).localeCompare(String(b.date))||String(a.id).localeCompare(String(b.id))}
+function sortDateDesc(a,b){return String(b.date).localeCompare(String(a.date))||String(b.id).localeCompare(String(a.id))}
+function setDefaults(){
+  ["purchaseDate","inventorySaleDate","customerDate","partyDate","vehicleDate","daybookSelectedDate","stockAdjustmentDate"].forEach(id=>{if($(id)&&!$(id).value)$(id).value=today()});
+  if($("stockAsOfDate")&&!$("stockAsOfDate").value)$("stockAsOfDate").value=today();
+  if($("salaryMonth")&&!$("salaryMonth").value)$("salaryMonth").value=monthNow();
+  if(!$("reportMonth").value)$("reportMonth").value=monthNow();
+}
+function calcAmount(q,r){return +(num(q)*num(r)).toFixed(2)}
+function statusFor(amount,paid){const a=num(amount),p=num(paid);return p<=0?"Pending":p>=a?"Paid":"Partially Paid"}
+
+// Navigation
+$("nav").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".nav button,.page").forEach(x=>x.classList.remove("active"));btn.classList.add("active");$(btn.dataset.page).classList.add("active");$("pageTitle").textContent=btn.textContent;$("sidebar").classList.remove("open");if(btn.dataset.page==="reports")renderReports()}));
+$("menuBtn").onclick=()=>$("sidebar").classList.toggle("open");
+$("todayText").textContent=new Date().toLocaleDateString("en-AE",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+
+// Auto calculations
+[["purchaseQty","purchaseRate","purchaseAmount"],["inventorySaleQty","inventorySaleRate","inventorySaleAmount"]].forEach(([q,r,a])=>[$(q),$(r)].forEach(el=>el.addEventListener("input",()=>{if($(q).value&&$(r).value)$(a).value=calcAmount($(q).value,$(r).value).toFixed(2)})));
+[$("customerWeight"),$("customerPrice"),$("customerDeduction")].forEach(el=>el.addEventListener("input",()=>{const credit=Math.max(0,calcAmount($("customerWeight").value,$("customerPrice").value)-num($("customerDeduction").value));$("customerCredit").value=credit.toFixed(2)}));
+
+function setupSimpleModule(cfg){
+  $(cfg.form).addEventListener("submit",e=>{e.preventDefault();const rec=cfg.read();const i=db[cfg.key].findIndex(x=>x.id===rec.id);if(i>=0)db[cfg.key][i]=rec;else db[cfg.key].push(rec);cfg.reset();save(cfg.message)});
+  $(cfg.cancel).onclick=cfg.reset;
+}
+function normalizePurchaseType(v){return v==="CREDIT PURCHASE"?"CREDIT PURCHASE":"CASH PURCHASE"}
+function normalizeSaleType(v){return v==="CREDIT SALE"?"CREDIT SALE":"CASH SALE"}
+function purchaseAffectsCash(r){return normalizePurchaseType(r.purchaseType)!=="CREDIT PURCHASE"}
+function paymentAffectsCash(r){return r.affectsCash!==false&&r.category!=="CREDIT PURCHASE"}
+function isAutomaticCreditRecord(r){return r?.sourceType==="inventory-credit-purchase"||r?.sourceType==="inventory-credit-sale"}
+function findPreviousAutoRecord(previous, sourceType, group){
+  return previous.find(r=>
+    r.sourceType===sourceType &&
+    (
+      r.sourceGroupKey===group.key ||
+      (String(r.billNo)===String(group.billNo) && String(r.name).toLowerCase()===String(group.name).toLowerCase())
+    )
+  ) || {};
+}
+function rebuildPurchasePostings(){
+  db.purchases.forEach(r=>{
+    r.purchaseType=normalizePurchaseType(r.purchaseType);
+    r.supplier=r.supplier||"";
+  });
+  db.inventorySales.forEach(r=>{
+    r.saleType=normalizeSaleType(r.saleType);
+    r.customer=r.customer||"";
+  });
+
+  // Inventory purchases automatically go to the Daybook.
+  db.daybook=db.daybook.filter(r=>r.sourceType!=="inventory-purchase");
+  const daily={};
+  db.purchases.forEach(r=>{
+    const type=normalizePurchaseType(r.purchaseType);
+    const key=`${r.date}|${type}`;
+    (daily[key]??={date:r.date,type,amount:0,count:0,suppliers:new Set()});
+    daily[key].amount+=num(r.amount);
+    daily[key].count++;
+    if(r.supplier)daily[key].suppliers.add(r.supplier);
+  });
+  Object.values(daily).forEach(g=>db.daybook.push({
+    id:`auto-purchase-${g.date}-${g.type.replaceAll(" ","-")}`,
+    date:g.date,
+    side:"Payment",
+    category:g.type,
+    amount:+g.amount.toFixed(2),
+    name:[...g.suppliers].join(", "),
+    remarks:`Automatically posted from Inventory Purchase — ${g.count} item entr${g.count===1?"y":"ies"}`,
+    sourceType:"inventory-purchase",
+    auto:true,
+    affectsCash:g.type==="CASH PURCHASE"
+  }));
+
+  // Rebuild all automatically generated creditor and debtor records.
+  const previous=db.parties.filter(isAutomaticCreditRecord);
+  db.parties=db.parties.filter(r=>!isAutomaticCreditRecord(r));
+
+  const purchaseBills={};
+  db.purchases
+    .filter(r=>normalizePurchaseType(r.purchaseType)==="CREDIT PURCHASE")
+    .forEach(r=>{
+      const name=(r.supplier||"").trim();
+      const key=`PURCHASE|${r.date}|${r.billNo}|${name.toLowerCase()}`;
+      (purchaseBills[key]??={key,date:r.date,billNo:r.billNo,name,amount:0,items:[]});
+      purchaseBills[key].amount+=num(r.amount);
+      purchaseBills[key].items.push(r.item);
+    });
+
+  Object.values(purchaseBills).forEach(g=>{
+    const old=findPreviousAutoRecord(previous,"inventory-credit-purchase",g);
+    db.parties.push({
+      id:old.id||uid(),
+      date:g.date,
+      billNo:g.billNo,
+      name:g.name,
+      type:"Creditor",
+      amount:+g.amount.toFixed(2),
+      paidAmount:num(old.paidAmount),
+      paidDate:old.paidDate||"",
+      paymentBill:old.paymentBill||"",
+      paidName:old.paidName||"",
+      remarks:old.userRemarks||`Auto from credit purchase — Items: ${[...new Set(g.items)].join(", ")}`,
+      userRemarks:old.userRemarks||"",
+      sourceType:"inventory-credit-purchase",
+      sourceGroupKey:g.key
+    });
+  });
+
+  const saleBills={};
+  db.inventorySales
+    .filter(r=>normalizeSaleType(r.saleType)==="CREDIT SALE")
+    .forEach(r=>{
+      const name=(r.customer||"").trim();
+      const key=`SALE|${r.date}|${r.billNo}|${name.toLowerCase()}`;
+      (saleBills[key]??={key,date:r.date,billNo:r.billNo,name,amount:0,items:[]});
+      saleBills[key].amount+=num(r.amount);
+      saleBills[key].items.push(r.item);
+    });
+
+  Object.values(saleBills).forEach(g=>{
+    const old=findPreviousAutoRecord(previous,"inventory-credit-sale",g);
+    db.parties.push({
+      id:old.id||uid(),
+      date:g.date,
+      billNo:g.billNo,
+      name:g.name,
+      type:"Debtor",
+      amount:+g.amount.toFixed(2),
+      paidAmount:num(old.paidAmount),
+      paidDate:old.paidDate||"",
+      paymentBill:old.paymentBill||"",
+      paidName:old.paidName||"",
+      remarks:old.userRemarks||`Auto from credit sale — Items: ${[...new Set(g.items)].join(", ")}`,
+      userRemarks:old.userRemarks||"",
+      sourceType:"inventory-credit-sale",
+      sourceGroupKey:g.key
+    });
+  });
+}
+$("purchaseForm").addEventListener("submit",e=>{e.preventDefault();const purchaseType=normalizePurchaseType($("purchaseType").value),supplier=$("purchaseSupplier").value.trim();if(purchaseType==="CREDIT PURCHASE"&&!supplier){alert("Please enter the supplier name for a credit purchase.");$("purchaseSupplier").focus();return}const rec={id:$("purchaseId").value||uid(),billNo:$("purchaseBill").value.trim(),date:$("purchaseDate").value,purchaseType,supplier,item:$("purchaseItem").value.trim().toUpperCase(),qty:num($("purchaseQty").value),rate:num($("purchaseRate").value),amount:num($("purchaseAmount").value),remarks:$("purchaseRemarks").value.trim()};const i=db.purchases.findIndex(x=>x.id===rec.id);if(i>=0)db.purchases[i]=rec;else db.purchases.push(rec);rebuildPurchasePostings();resetPurchase();save(`${purchaseType} saved and posted to Daybook.`)});
+$("purchaseCancel").onclick=resetPurchase;
+function resetPurchase(){$("purchaseForm").reset();$("purchaseId").value="";$("purchaseDate").value=today();$("purchaseType").value="CASH PURCHASE"}
+$("inventorySaleForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const saleType=normalizeSaleType($("inventorySaleType").value);
+  const customer=$("inventorySaleCustomer").value.trim();
+  if(saleType==="CREDIT SALE"&&!customer){
+    alert("Please enter the customer name for a credit sale.");
+    $("inventorySaleCustomer").focus();
+    return;
+  }
+  const rec={
+    id:$("inventorySaleId").value||uid(),
+    billNo:$("inventorySaleBill").value.trim(),
+    date:$("inventorySaleDate").value,
+    saleType,
+    customer,
+    item:$("inventorySaleItem").value.trim().toUpperCase(),
+    qty:num($("inventorySaleQty").value),
+    rate:num($("inventorySaleRate").value),
+    amount:num($("inventorySaleAmount").value),
+    remarks:$("inventorySaleRemarks").value.trim()
+  };
+  const i=db.inventorySales.findIndex(x=>x.id===rec.id);
+  if(i>=0)db.inventorySales[i]=rec;else db.inventorySales.push(rec);
+  rebuildPurchasePostings();
+  resetInventorySale();
+  save(saleType==="CREDIT SALE"?"Credit sale saved and debtor created automatically.":"Cash sale saved.");
+});
+$("inventorySaleCancel").onclick=resetInventorySale;
+function resetInventorySale(){
+  $("inventorySaleForm").reset();
+  $("inventorySaleId").value="";
+  $("inventorySaleDate").value=today();
+  $("inventorySaleType").value="CASH SALE";
+}
+
+function groupDailyRows(records,rowClass,editAction,deleteAction){
+  const groups={};
+  records.forEach(r=>(groups[r.date]??=[]).push(r));
+  let html="";
+  Object.keys(groups).sort().forEach(date=>{
+    const group=groups[date];
+    const total=group.reduce((s,r)=>s+num(r.amount),0);
+    group.forEach((r,i)=>{
+      const last=i===group.length-1;
+      const isPurchase=rowClass==="purchase-row";
+      const isSale=rowClass==="sale-row";
+      html+=`<tr class="${rowClass}">
+        <td>${esc(r.billNo)}</td>
+        <td>${esc(r.date)}</td>
+        ${isPurchase?`<td>${esc(normalizePurchaseType(r.purchaseType))}</td><td>${esc(r.supplier||"")}</td>`:""}
+        ${isSale?`<td>${esc(normalizeSaleType(r.saleType))}</td><td>${esc(r.customer||"")}</td>`:""}
+        <td><strong>${esc(r.item)}</strong></td>
+        <td class="amount">${qty(r.qty)}</td>
+        <td class="amount">${num(r.rate).toFixed(3)}</td>
+        <td class="amount">${money(r.amount)}</td>
+        <td class="${last?"daily-total":""}">${last?money(total):""}</td>
+        <td>${esc(r.remarks||"")}</td>
+        <td class="no-print"><button class="btn small secondary" data-action="${editAction}" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="${deleteAction}" data-id="${r.id}">Delete</button></td>
+      </tr>`;
+    });
+  });
+  return html;
+}
+function filteredRecords(key,dateId,searchId){
+  const date=$(dateId).value,q=$(searchId).value.trim().toLowerCase();
+  return [...db[key]].filter(r=>
+    (!date||r.date===date)&&
+    (!q||[r.billNo,r.item,r.remarks,r.supplier,r.purchaseType,r.customer,r.saleType].some(v=>String(v??"").toLowerCase().includes(q)))
+  ).sort(sortDateAsc);
+}
+function renderPurchases(){
+  const list=filteredRecords("purchases","purchaseFilterDate","purchaseSearch");
+  $("purchaseBody").innerHTML=list.length?groupDailyRows(list,"purchase-row","edit-purchase","delete-purchase"):empty(11,"No purchase records found.");
+  $("purchaseTotalQty").textContent=qty(list.reduce((s,r)=>s+num(r.qty),0));
+  $("purchaseTotalAmount").textContent=money(list.reduce((s,r)=>s+num(r.amount),0));
+}
+function renderInventorySales(){
+  const list=filteredRecords("inventorySales","inventorySaleFilterDate","inventorySaleSearch");
+  $("inventorySaleBody").innerHTML=list.length?groupDailyRows(list,"sale-row","edit-inventory-sale","delete-inventory-sale"):empty(11,"No sale records found.");
+  $("inventorySaleTotalQty").textContent=qty(list.reduce((s,r)=>s+num(r.qty),0));
+  $("inventorySaleTotalAmount").textContent=money(list.reduce((s,r)=>s+num(r.amount),0));
+}
+["purchaseFilterDate","purchaseSearch"].forEach(id=>$(id).addEventListener(id.includes("Date")?"change":"input",renderPurchases));$("purchaseClear").onclick=()=>{$("purchaseFilterDate").value="";$("purchaseSearch").value="";renderPurchases()};
+["inventorySaleFilterDate","inventorySaleSearch"].forEach(id=>$(id).addEventListener(id.includes("Date")?"change":"input",renderInventorySales));$("inventorySaleClear").onclick=()=>{$("inventorySaleFilterDate").value="";$("inventorySaleSearch").value="";renderInventorySales()};
+
+// Customer Ledger
+$("customerLedgerForm").addEventListener("submit",e=>{e.preventDefault();const rec={id:$("customerLedgerId").value||uid(),customer:$("customerName").value.trim(),mobile:$("customerMobile").value.trim(),date:$("customerDate").value,vehicleNo:$("customerVehicle").value.trim(),driver:$("customerDriver").value.trim(),invoiceNo:$("customerInvoice").value.trim(),ticketNo:$("customerTicket").value.trim(),particular:$("customerParticular").value.trim().toUpperCase(),weight:num($("customerWeight").value),price:num($("customerPrice").value),deduction:num($("customerDeduction").value),debit:num($("customerDebit").value),credit:num($("customerCredit").value),remarks:$("customerRemarks").value.trim()};const i=db.customerLedger.findIndex(x=>x.id===rec.id);if(i>=0)db.customerLedger[i]=rec;else db.customerLedger.push(rec);resetCustomerLedger();save("Customer ledger entry saved.")});
+function resetCustomerLedger(){$("customerLedgerForm").reset();$("customerLedgerId").value="";$("customerDate").value=today();$("customerDeduction").value=0;$("customerDebit").value=0;$("customerCredit").value=0}
+$("customerLedgerCancel").onclick=resetCustomerLedger;
+function customerNames(){return [...new Set(db.customerLedger.map(x=>x.customer).filter(Boolean))].sort((a,b)=>a.localeCompare(b))}
+function renderCustomerFilter(){const current=$("customerFilter").value;$("customerFilter").innerHTML='<option value="">All Customers</option>'+customerNames().map(n=>`<option>${esc(n)}</option>`).join("");if(customerNames().includes(current))$("customerFilter").value=current}
+function renderCustomerLedger(){renderCustomerFilter();const customer=$("customerFilter").value,month=$("customerMonthFilter").value;let list=[...db.customerLedger].filter(r=>(!customer||r.customer===customer)&&(!month||r.date.startsWith(month))).sort(sortDateAsc);const runningByCustomer={};const rows=list.map(r=>{runningByCustomer[r.customer]=(runningByCustomer[r.customer]||0)+num(r.credit)-num(r.debit);return {...r,balance:runningByCustomer[r.customer]}});$("customerLedgerBody").innerHTML=rows.length?rows.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.vehicleNo)}</td><td>${esc(r.driver)}</td><td>${esc(r.invoiceNo)}</td><td>${esc(r.ticketNo)}</td><td>${esc(r.particular)}</td><td class="amount">${qty(r.weight)}</td><td class="amount">${num(r.price).toFixed(3)}</td><td class="amount">${money(r.deduction)}</td><td class="amount">${money(r.debit)}</td><td class="amount">${money(r.credit)}</td><td class="amount"><strong>${money(r.balance)}</strong></td><td><button class="btn small secondary" data-action="edit-customer-ledger" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="delete-customer-ledger" data-id="${r.id}">Delete</button></td></tr>`).join(""):empty(13,"No customer ledger records found.");const credit=list.reduce((s,r)=>s+num(r.credit),0),debit=list.reduce((s,r)=>s+num(r.debit),0);$("customerTotalCredit").textContent=money(credit);$("customerTotalDebit").textContent=money(debit);$("customerClosingBalance").textContent=money(credit-debit);$("customerHeaderText").textContent=customer?`${customer}${list[0]?.mobile?" — "+list[0].mobile:""}`:"All customers"}
+$("customerFilter").onchange=renderCustomerLedger;$("customerMonthFilter").onchange=renderCustomerLedger;$("customerClear").onclick=()=>{$("customerFilter").value="";$("customerMonthFilter").value="";renderCustomerLedger()};
+
+// Daybook
+function addDaysISO(date,days){const d=new Date(date+"T12:00:00");d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
+function dayCashRecord(date){
+  const r=db.dayCash[date];
+  if(!r)return {opening:0,physical:0,closing:null,closed:false,openingMode:"unset",carriedFrom:""};
+  return {...r,opening:num(r.opening),physical:num(r.physical),openingMode:r.openingMode||(Object.prototype.hasOwnProperty.call(r,"opening")?"manual":"unset")};
+}
+function daybookTotals(date){
+  const rows=db.daybook.filter(x=>x.date===date);
+  const receipts=rows.filter(x=>x.side==="Receipt").reduce((s,r)=>s+num(r.amount),0);
+  const totalPayments=rows.filter(x=>x.side==="Payment").reduce((s,r)=>s+num(r.amount),0);
+  const cashPayments=rows.filter(x=>x.side==="Payment"&&paymentAffectsCash(x)).reduce((s,r)=>s+num(r.amount),0);
+  const creditPurchases=rows.filter(x=>x.side==="Payment"&&!paymentAffectsCash(x)).reduce((s,r)=>s+num(r.amount),0);
+  return {receipts,totalPayments,cashPayments,creditPurchases};
+}
+function calculatedClosingForDate(date){
+  const c=dayCashRecord(date),t=daybookTotals(date);
+  return num(c.opening)+t.receipts-t.cashPayments;
+}
+function syncClosedCashCarry(){
+  const closedDates=Object.keys(db.dayCash).filter(date=>db.dayCash[date]?.closed).sort();
+  closedDates.forEach(date=>{
+    const current=db.dayCash[date];
+    current.closing=calculatedClosingForDate(date);
+    const nextDate=addDaysISO(date,1);
+    const existing=db.dayCash[nextDate];
+    const next=existing||{};
+    const existingMode=next.openingMode||(existing&&Object.prototype.hasOwnProperty.call(existing,"opening")?"manual":"unset");
+    if(existingMode!=="manual"){
+      db.dayCash[nextDate]={...next,opening:current.closing,openingMode:"carry",carriedFrom:date};
+    }
+  });
+}
+function persistCashControl(message){
+  syncClosedCashCarry();
+  localStorage.setItem(KEY,JSON.stringify(db));
+  loadCashInputs();
+  renderDaybook();
+  renderDashboard();
+  renderReports();
+  if(message)toast(message);
+}
+function saveOpeningCash(){
+  const date=$("daybookSelectedDate").value;if(!date)return;
+  const old=db.dayCash[date]||{};
+  db.dayCash[date]={...old,opening:num($("openingCash").value),physical:num($("physicalCash").value),openingMode:"manual",carriedFrom:""};
+  persistCashControl("Opening cash saved as a manual value.");
+}
+function savePhysicalCash(){
+  const date=$("daybookSelectedDate").value;if(!date)return;
+  const old=db.dayCash[date]||{};
+  const mode=old.openingMode||(Object.prototype.hasOwnProperty.call(old,"opening")?"manual":"unset");
+  db.dayCash[date]={...old,opening:num($("openingCash").value),physical:num($("physicalCash").value),openingMode:mode};
+  persistCashControl();
+}
+$("openingCash").addEventListener("change",saveOpeningCash);
+$("physicalCash").addEventListener("change",savePhysicalCash);
+$("daybookSelectedDate").addEventListener("change",()=>{loadCashInputs();renderDaybook()});
+function loadCashInputs(){
+  const date=$("daybookSelectedDate").value,c=dayCashRecord(date);
+  $("openingCash").value=c.opening||0;
+  $("physicalCash").value=c.physical||0;
+  $("calculatedClosingCash").value=calculatedClosingForDate(date).toFixed(2);
+}
+$("closeDayBtn").addEventListener("click",()=>{
+  const date=$("daybookSelectedDate").value;if(!date)return;
+  const old=db.dayCash[date]||{};
+  const mode=old.openingMode||(Object.prototype.hasOwnProperty.call(old,"opening")?"manual":"unset");
+  db.dayCash[date]={...old,opening:num($("openingCash").value),physical:num($("physicalCash").value),openingMode:mode,closed:true,closedAt:new Date().toISOString()};
+  const nextDate=addDaysISO(date,1);
+  const nextBefore=dayCashRecord(nextDate);
+  syncClosedCashCarry();
+  localStorage.setItem(KEY,JSON.stringify(db));
+  loadCashInputs();renderDaybook();renderDashboard();renderReports();
+  const nextAfter=dayCashRecord(nextDate);
+  if(nextBefore.openingMode==="manual"){
+    toast(`Day closed at ${money(db.dayCash[date].closing)}. ${nextDate} keeps its manually entered opening cash.`);
+  }else{
+    toast(`Day closed at ${money(db.dayCash[date].closing)} and carried to ${nextDate}.`);
+  }
+});
+function setupDaybookForm(side){const lower=side.toLowerCase();$(`${lower}Form`).addEventListener("submit",e=>{e.preventDefault();const date=$("daybookSelectedDate").value;const category=$(`${lower}Category`).value;const rec={id:$(`${lower}Id`).value||uid(),date,side,category,amount:num($(`${lower}Amount`).value),name:$(`${lower}Name`).value.trim(),remarks:$(`${lower}Remarks`).value.trim(),affectsCash:side==="Receipt"||category!=="CREDIT PURCHASE"};const i=db.daybook.findIndex(x=>x.id===rec.id);if(i>=0)db.daybook[i]=rec;else db.daybook.push(rec);resetDaybookForm(side);save(`${side} saved.`)});$(`${lower}Cancel`).onclick=()=>resetDaybookForm(side)}
+function resetDaybookForm(side){const lower=side.toLowerCase();$(`${lower}Form`).reset();$(`${lower}Id`).value=""}
+setupDaybookForm("Receipt");setupDaybookForm("Payment");
+function daybookActions(r){return r.auto?`<span class="auto-tag" title="${esc(r.sourceType==="salary-ledger"?"Automatically updated from Salaries Ledger":"Automatically updated from Inventory Purchase")}">AUTO</span>`:`<button class="btn small secondary" data-action="edit-daybook" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="delete-daybook" data-id="${r.id}">Delete</button>`}
+function renderDaybook(){
+  const date=$("daybookSelectedDate").value,c=dayCashRecord(date);
+  const receipt=db.daybook.filter(x=>x.date===date&&x.side==="Receipt"),payment=db.daybook.filter(x=>x.date===date&&x.side==="Payment");
+  $("receiptBody").innerHTML=receipt.length?receipt.map(r=>`<tr><td>${esc(r.category)}</td><td class="amount">${money(r.amount)}</td><td>${esc(r.name)}</td><td>${esc(r.remarks)}</td><td class="no-print">${daybookActions(r)}</td></tr>`).join(""):empty(5,"No receipts for this date.");
+  $("paymentBody").innerHTML=payment.length?payment.map(r=>`<tr><td>${esc(r.category)}</td><td class="amount">${money(r.amount)}</td><td>${esc(r.name)}</td><td>${esc(r.remarks)}</td><td class="no-print">${daybookActions(r)}</td></tr>`).join(""):empty(5,"No payments for this date.");
+  const totals=daybookTotals(date),closing=num(c.opening)+totals.receipts-totals.cashPayments,diff=num(c.physical)-closing;
+  $("dayTotalReceipt").textContent=money(totals.receipts);
+  $("dayCashPayment").textContent=money(totals.cashPayments);
+  $("dayCreditPurchase").textContent=money(totals.creditPurchases);
+  $("dayTotalPayment").textContent=money(totals.totalPayments);
+  $("dayClosingBalance").textContent=money(closing);
+  $("dayOpeningDisplay").textContent=money(c.opening);
+  $("dayPhysicalDisplay").textContent=money(c.physical);
+  $("daySavedClosing").textContent=c.closed?money(c.closing):"Not closed";
+  $("daySavedClosing").className=c.closed?"positive":"";
+  $("dayCashDifference").textContent=money(diff);
+  $("dayCashDifference").className=diff===0?"positive":diff<0?"negative":"positive";
+  $("calculatedClosingCash").value=closing.toFixed(2);
+  if(c.openingMode==="carry"){
+    $("openingCashSource").textContent=`Automatically carried from ${c.carriedFrom}. Change the amount to override it manually.`;
+  }else if(c.openingMode==="manual"){
+    $("openingCashSource").textContent="Manual opening cash. It will not be overwritten by the previous day.";
+  }else{
+    $("openingCashSource").textContent="Enter the first day opening cash manually, or close the previous day to carry it automatically.";
+  }
+  if(c.closed){
+    $("closeDayBtn").textContent="Update Closing & Carry Forward";
+    $("dayCloseStatus").textContent=`Closed at ${money(c.closing)}. This amount is linked to ${addDaysISO(date,1)} as opening cash unless that day is manually overridden.`;
+  }else{
+    $("closeDayBtn").textContent="Close Day & Carry Forward";
+    $("dayCloseStatus").textContent="Save today’s closing cash and use it as the next day’s opening cash.";
+  }
+}
+
+// Parties
+$("partyForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const recordId=$("partyId").value||uid();
+  const existing=db.parties.find(x=>x.id===recordId);
+  let rec;
+  if(isAutomaticCreditRecord(existing)){
+    rec={
+      ...existing,
+      paidAmount:num($("partyPaidAmount").value),
+      paidDate:$("partyPaidDate").value,
+      paymentBill:$("partyPaymentBill").value.trim(),
+      paidName:$("partyPaidName").value.trim(),
+      userRemarks:$("partyRemarks").value.trim(),
+      remarks:$("partyRemarks").value.trim()||existing.remarks
+    };
+  }else{
+    rec={
+      id:recordId,
+      date:$("partyDate").value,
+      billNo:$("partyBill").value.trim(),
+      name:$("partyName").value.trim(),
+      type:$("partyType").value,
+      amount:num($("partyAmount").value),
+      paidAmount:num($("partyPaidAmount").value),
+      paidDate:$("partyPaidDate").value,
+      paymentBill:$("partyPaymentBill").value.trim(),
+      paidName:$("partyPaidName").value.trim(),
+      remarks:$("partyRemarks").value.trim()
+    };
+  }
+  const i=db.parties.findIndex(x=>x.id===rec.id);
+  if(i>=0)db.parties[i]=rec;else db.parties.push(rec);
+  resetParty();
+  save(isAutomaticCreditRecord(rec)?"Payment information saved.":"Creditor/debtor record saved.");
+});
+function resetParty(){$("partyForm").reset();$("partyId").value="";$("partyDate").value=today();$("partyPaidAmount").value=0}
+$("partyCancel").onclick=resetParty;
+function renderParties(){
+  const month=$("partyMonthFilter").value,type=$("partyTypeFilter").value,q=$("partySearch").value.toLowerCase();
+  const list=[...db.parties].filter(r=>
+    (!month||r.date.startsWith(month))&&
+    (!type||r.type===type)&&
+    (!q||[r.billNo,r.name,r.remarks].some(v=>String(v).toLowerCase().includes(q)))
+  ).sort(sortDateAsc);
+  $("partyBody").innerHTML=list.length?list.map(r=>{
+    const outstanding=Math.max(0,num(r.amount)-num(r.paidAmount));
+    const status=statusFor(r.amount,r.paidAmount);
+    const cls=status==="Paid"?"paid":status==="Pending"?"pending":"partial";
+    const automatic=isAutomaticCreditRecord(r);
+    const sourceLabel=r.sourceType==="inventory-credit-sale"?"AUTO CREDIT SALE":"AUTO CREDIT PURCHASE";
+    return `<tr>
+      <td>${esc(r.date)}</td>
+      <td>${esc(r.billNo)}</td>
+      <td><strong>${esc(r.name)}</strong></td>
+      <td><span class="badge ${r.type.toLowerCase()}">${r.type}</span></td>
+      <td class="amount">${money(r.amount)}</td>
+      <td><span class="badge ${cls}">${status}</span></td>
+      <td>${esc(r.paidDate||"")}</td>
+      <td>${esc(r.paymentBill)}</td>
+      <td>${esc(r.paidName)}</td>
+      <td class="amount">${money(r.paidAmount)}</td>
+      <td class="amount"><strong>${money(outstanding)}</strong></td>
+      <td>${esc(r.remarks)}</td>
+      <td>
+        <button class="btn small secondary" data-action="edit-party" data-id="${r.id}">${automatic?"Record Payment":"Edit"}</button>
+        ${automatic?`<span class="auto-tag">${sourceLabel}</span>`:`<button class="btn small danger" data-action="delete-party" data-id="${r.id}">Delete</button>`}
+      </td>
+    </tr>`;
+  }).join(""):empty(13,"No creditor or debtor records found.");
+  $("partyDebtorTotal").textContent=money(db.parties.filter(r=>r.type==="Debtor").reduce((s,r)=>s+Math.max(0,num(r.amount)-num(r.paidAmount)),0));
+  $("partyCreditorTotal").textContent=money(db.parties.filter(r=>r.type==="Creditor").reduce((s,r)=>s+Math.max(0,num(r.amount)-num(r.paidAmount)),0));
+}
+["partyMonthFilter","partyTypeFilter"].forEach(id=>$(id).onchange=renderParties);$("partySearch").oninput=renderParties;$("partyClear").onclick=()=>{$("partyMonthFilter").value="";$("partyTypeFilter").value="";$("partySearch").value="";renderParties()};
+
+// Vehicles
+$("vehicleForm").addEventListener("submit",e=>{e.preventDefault();const rec={id:$("vehicleId").value||uid(),date:$("vehicleDate").value,vehicleNo:$("vehicleNumber").value.trim(),driver:$("vehicleDriver").value.trim(),category:$("vehicleCategory").value,particulars:$("vehicleParticulars").value.trim(),amount:num($("vehicleAmount").value),remarks:$("vehicleRemarks").value.trim()};const i=db.vehicles.findIndex(x=>x.id===rec.id);if(i>=0)db.vehicles[i]=rec;else db.vehicles.push(rec);resetVehicle();save("Vehicle expense saved.")});
+function resetVehicle(){$("vehicleForm").reset();$("vehicleId").value="";$("vehicleDate").value=today()}
+$("vehicleCancel").onclick=resetVehicle;
+function renderVehicles(){const date=$("vehicleFilterDate").value,q=$("vehicleSearch").value.toLowerCase();const list=[...db.vehicles].filter(r=>(!date||r.date===date)&&(!q||[r.vehicleNo,r.driver,r.category,r.particulars,r.remarks].some(v=>String(v).toLowerCase().includes(q)))).sort(sortDateAsc);$("vehicleBody").innerHTML=list.length?list.map(r=>`<tr><td>${esc(r.date)}</td><td>${esc(r.vehicleNo)}</td><td>${esc(r.driver)}</td><td>${esc(r.category)}</td><td>${esc(r.particulars)}</td><td class="amount">${money(r.amount)}</td><td>${esc(r.remarks)}</td><td><button class="btn small secondary" data-action="edit-vehicle" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="delete-vehicle" data-id="${r.id}">Delete</button></td></tr>`).join(""):empty(8,"No vehicle expense records found.");$("vehicleTotal").textContent=money(list.reduce((s,r)=>s+num(r.amount),0))}
+$("vehicleFilterDate").onchange=renderVehicles;$("vehicleSearch").oninput=renderVehicles;$("vehicleClear").onclick=()=>{$("vehicleFilterDate").value="";$("vehicleSearch").value="";renderVehicles()};
+
+
+// Stock Management
+function monthEndDate(month){const [y,m]=month.split("-").map(Number);return new Date(y,m,0).toISOString().slice(0,10)}
+function isStockIncrease(type){return type==="OPENING STOCK"||type==="STOCK INCREASE"}
+function signedAdjustmentQty(r){return isStockIncrease(r.type)?num(r.qty):-num(r.qty)}
+function stockSnapshot(asOfDate=today(),periodStart="",periodEnd=""){
+  const state={},activity={};let cogs=0,stockLoss=0;
+  const get=item=>state[item]??=( {qty:0,value:0} );
+  const act=item=>activity[item]??=( {purchaseQty:0,purchaseValue:0,saleQty:0,saleValue:0,manualNetQty:0,openingQty:0} );
+  const events=[];
+  db.purchases.filter(r=>r.date<=asOfDate).forEach(r=>events.push({date:r.date,order:1,kind:"purchase",r}));
+  db.stockAdjustments.filter(r=>r.date<=asOfDate).forEach(r=>events.push({date:r.date,order:isStockIncrease(r.type)?0:3,kind:"adjustment",r}));
+  db.inventorySales.filter(r=>r.date<=asOfDate).forEach(r=>events.push({date:r.date,order:2,kind:"sale",r}));
+  events.sort((a,b)=>a.date.localeCompare(b.date)||a.order-b.order||String(a.r.id).localeCompare(String(b.r.id)));
+  events.forEach(e=>{
+    const r=e.r,item=String(r.item||"").trim().toUpperCase();if(!item)return;
+    const st=get(item),ac=act(item),inPeriod=(!periodStart||r.date>=periodStart)&&(!periodEnd||r.date<=periodEnd);
+    if(e.kind==="purchase"){
+      const q=num(r.qty),v=num(r.amount)||q*num(r.rate);st.qty+=q;st.value+=v;
+      if(inPeriod){ac.purchaseQty+=q;ac.purchaseValue+=v}
+    }else if(e.kind==="adjustment"){
+      const q=num(r.qty);
+      if(isStockIncrease(r.type)){
+        const v=q*num(r.rate);st.qty+=q;st.value+=v;
+        if(inPeriod){ac.manualNetQty+=q;if(r.type==="OPENING STOCK")ac.openingQty+=q}
+      }else{
+        const avg=st.qty>0?st.value/st.qty:0,cost=q*avg;st.qty-=q;st.value=Math.max(0,st.value-cost);
+        if(inPeriod){ac.manualNetQty-=q;if(r.type==="DAMAGE / LOSS")stockLoss+=cost}
+      }
+    }else{
+      const q=num(r.qty),avg=st.qty>0?st.value/st.qty:0,cost=q*avg;st.qty-=q;st.value=Math.max(0,st.value-cost);
+      if(inPeriod){ac.saleQty+=q;ac.saleValue+=num(r.amount);cogs+=cost}
+    }
+  });
+  return {state,activity,cogs,stockLoss};
+}
+function stockBeforeMonth(month){const start=`${month}-01`;const previous=new Date(start+"T00:00:00");previous.setDate(previous.getDate()-1);return stockSnapshot(previous.toISOString().slice(0,10))}
+function resetStockAdjustment(){$("stockAdjustmentForm").reset();$("stockAdjustmentId").value="";$("stockAdjustmentDate").value=today();$("stockAdjustmentType").value="OPENING STOCK";$("stockAdjustmentRate").value=0}
+$("stockAdjustmentForm").addEventListener("submit",e=>{e.preventDefault();const rec={id:$("stockAdjustmentId").value||uid(),date:$("stockAdjustmentDate").value,item:$("stockAdjustmentItem").value.trim().toUpperCase(),type:$("stockAdjustmentType").value,qty:num($("stockAdjustmentQty").value),rate:num($("stockAdjustmentRate").value),reference:$("stockAdjustmentReference").value.trim(),remarks:$("stockAdjustmentRemarks").value.trim()};if(isStockIncrease(rec.type)&&rec.rate<0){alert("Please enter a valid cost rate.");return}const i=db.stockAdjustments.findIndex(x=>x.id===rec.id);if(i>=0)db.stockAdjustments[i]=rec;else db.stockAdjustments.push(rec);resetStockAdjustment();save("Manual stock adjustment saved.")});
+$("stockAdjustmentCancel").onclick=resetStockAdjustment;
+function renderStock(){
+  const asOf=$("stockAsOfDate").value||today(),q=$("stockSearch").value.trim().toLowerCase(),snap=stockSnapshot(asOf);
+  const purchaseMap={},saleMap={},manualMap={};
+  db.purchases.filter(r=>r.date<=asOf).forEach(r=>purchaseMap[r.item]=(purchaseMap[r.item]||0)+num(r.qty));
+  db.inventorySales.filter(r=>r.date<=asOf).forEach(r=>saleMap[r.item]=(saleMap[r.item]||0)+num(r.qty));
+  db.stockAdjustments.filter(r=>r.date<=asOf).forEach(r=>manualMap[r.item]=(manualMap[r.item]||0)+signedAdjustmentQty(r));
+  const items=[...new Set([...Object.keys(snap.state),...Object.keys(purchaseMap),...Object.keys(saleMap),...Object.keys(manualMap)])].filter(item=>!q||item.toLowerCase().includes(q)).sort();
+  $("stockBody").innerHTML=items.length?items.map(item=>{const st=snap.state[item]||{qty:0,value:0},avg=st.qty>0?st.value/st.qty:0,status=st.qty<0?"NEGATIVE STOCK":st.qty===0?"OUT OF STOCK":"IN STOCK";return `<tr><td><strong>${esc(item)}</strong></td><td class="amount">${qty(purchaseMap[item]||0)}</td><td class="amount">${qty(saleMap[item]||0)}</td><td class="amount">${qty(manualMap[item]||0)}</td><td class="amount ${st.qty<0?"negative":""}">${qty(st.qty)}</td><td class="amount">${num(avg).toFixed(3)}</td><td class="amount">${money(st.value)}</td><td><span class="badge ${st.qty>0?"paid":"pending"}">${status}</span></td></tr>`}).join(""):empty(8,"No stock records found.");
+  const states=Object.values(snap.state);$("stockTotalQty").textContent=qty(states.reduce((s,r)=>s+num(r.qty),0));$("stockTotalValue").textContent=money(states.reduce((s,r)=>s+num(r.value),0));$("stockNegativeItems").textContent=states.filter(r=>num(r.qty)<0).length;
+  const fd=$("stockAdjustmentFilterDate").value,search=$("stockAdjustmentSearch").value.trim().toLowerCase();const list=[...db.stockAdjustments].filter(r=>(!fd||r.date===fd)&&(!search||[r.item,r.type,r.reference,r.remarks].some(v=>String(v||"").toLowerCase().includes(search)))).sort(sortDateAsc);
+  $("stockAdjustmentBody").innerHTML=list.length?list.map(r=>`<tr><td>${r.date}</td><td><strong>${esc(r.item)}</strong></td><td>${esc(r.type)}</td><td class="amount">${qty(r.qty)}</td><td class="amount">${num(r.rate).toFixed(3)}</td><td>${esc(r.reference||"")}</td><td>${esc(r.remarks||"")}</td><td><button class="btn small secondary" data-action="edit-stock-adjustment" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="delete-stock-adjustment" data-id="${r.id}">Delete</button></td></tr>`).join(""):empty(8,"No manual stock adjustments.");
+}
+$("stockAsOfDate").onchange=renderStock;$("stockSearch").oninput=renderStock;$("stockAdjustmentFilterDate").onchange=renderStock;$("stockAdjustmentSearch").oninput=renderStock;$("stockAdjustmentClear").onclick=()=>{$("stockAdjustmentFilterDate").value="";$("stockAdjustmentSearch").value="";renderStock()};
+
+// Salaries Ledger
+function calculateSalary(){const gross=num($("salaryBasic").value)+num($("salaryOvertime").value)+num($("salaryAllowance").value),net=Math.max(0,gross-num($("salaryDeduction").value)-num($("salaryAdvance").value));$("salaryNet").value=net.toFixed(2)}
+["salaryBasic","salaryOvertime","salaryAllowance","salaryDeduction","salaryAdvance"].forEach(id=>$(id).addEventListener("input",calculateSalary));
+function rebuildSalaryPostings(){
+  db.daybook=db.daybook.filter(r=>r.sourceType!=="salary-ledger");
+  db.salaries.filter(r=>num(r.paidAmount)>0&&r.paymentDate).forEach(r=>db.daybook.push({id:`auto-salary-${r.id}`,date:r.paymentDate,side:"Payment",category:"SALARY",amount:num(r.paidAmount),name:r.employee,remarks:`Automatically posted from Salaries Ledger — ${r.salaryMonth}${r.paymentMethod?" — "+r.paymentMethod:""}`,sourceType:"salary-ledger",sourceId:r.id,auto:true,affectsCash:true}));
+}
+function resetSalary(){$("salaryForm").reset();$("salaryId").value="";$("salaryMonth").value=monthNow();["salaryOvertime","salaryAllowance","salaryDeduction","salaryAdvance","salaryPaid"].forEach(id=>$(id).value=0);calculateSalary()}
+$("salaryForm").addEventListener("submit",e=>{e.preventDefault();calculateSalary();const paid=num($("salaryPaid").value);if(paid>0&&!$("salaryPaymentDate").value){alert("Please enter the payment date for a paid salary amount.");$("salaryPaymentDate").focus();return}const rec={id:$("salaryId").value||uid(),salaryMonth:$("salaryMonth").value,employee:$("salaryEmployee").value.trim(),employeeId:$("salaryEmployeeId").value.trim(),designation:$("salaryDesignation").value.trim(),basic:num($("salaryBasic").value),overtime:num($("salaryOvertime").value),allowance:num($("salaryAllowance").value),deduction:num($("salaryDeduction").value),advance:num($("salaryAdvance").value),netSalary:num($("salaryNet").value),paidAmount:paid,paymentDate:$("salaryPaymentDate").value,paymentMethod:$("salaryPaymentMethod").value,remarks:$("salaryRemarks").value.trim()};const i=db.salaries.findIndex(x=>x.id===rec.id);if(i>=0)db.salaries[i]=rec;else db.salaries.push(rec);rebuildSalaryPostings();resetSalary();save("Salary saved and paid amount posted to Daybook.")});
+$("salaryCancel").onclick=resetSalary;
+function salaryStatus(r){return statusFor(r.netSalary,r.paidAmount)}
+function renderSalaries(){const m=$("salaryMonthFilter").value,q=$("salarySearch").value.trim().toLowerCase();const list=[...db.salaries].filter(r=>(!m||r.salaryMonth===m)&&(!q||[r.employee,r.employeeId,r.designation,r.remarks].some(v=>String(v||"").toLowerCase().includes(q)))).sort((a,b)=>String(b.salaryMonth).localeCompare(String(a.salaryMonth))||a.employee.localeCompare(b.employee));$("salaryBody").innerHTML=list.length?list.map(r=>{const outstanding=Math.max(0,num(r.netSalary)-num(r.paidAmount)),status=salaryStatus(r);return `<tr><td>${esc(r.salaryMonth)}</td><td><strong>${esc(r.employee)}</strong></td><td>${esc(r.employeeId||"")}</td><td>${esc(r.designation||"")}</td><td class="amount">${money(r.basic)}</td><td class="amount">${money(r.overtime)}</td><td class="amount">${money(r.allowance)}</td><td class="amount">${money(r.deduction)}</td><td class="amount">${money(r.advance)}</td><td class="amount"><strong>${money(r.netSalary)}</strong></td><td class="amount">${money(r.paidAmount)}</td><td class="amount"><strong>${money(outstanding)}</strong></td><td><span class="badge ${status==="Paid"?"paid":status==="Pending"?"pending":"partial"}">${status}</span></td><td>${esc(r.paymentDate||"")}</td><td>${esc(r.paymentMethod||"")}</td><td>${esc(r.remarks||"")}</td><td><button class="btn small secondary" data-action="edit-salary" data-id="${r.id}">Edit</button> <button class="btn small danger" data-action="delete-salary" data-id="${r.id}">Delete</button></td></tr>`}).join(""):empty(17,"No salary records found.");$("salaryGrossTotal").textContent=money(list.reduce((s,r)=>s+num(r.basic)+num(r.overtime)+num(r.allowance),0));$("salaryNetTotal").textContent=money(list.reduce((s,r)=>s+num(r.netSalary),0));$("salaryPaidTotal").textContent=money(list.reduce((s,r)=>s+num(r.paidAmount),0));$("salaryOutstandingTotal").textContent=money(list.reduce((s,r)=>s+Math.max(0,num(r.netSalary)-num(r.paidAmount)),0))}
+$("salaryMonthFilter").onchange=renderSalaries;$("salarySearch").oninput=renderSalaries;$("salaryClear").onclick=()=>{$("salaryMonthFilter").value="";$("salarySearch").value="";renderSalaries()};
+
+// Dashboard
+function cashForDate(date){const c=dayCashRecord(date),rows=db.daybook.filter(x=>x.date===date);return num(c.opening)+rows.filter(x=>x.side==="Receipt").reduce((s,r)=>s+num(r.amount),0)-rows.filter(x=>x.side==="Payment"&&paymentAffectsCash(x)).reduce((s,r)=>s+num(r.amount),0)}
+function profitForMonth(m){
+  const start=`${m}-01`,end=monthEndDate(m),snap=stockSnapshot(end,start,end);
+  const salesRevenue=monthRows("inventorySales",m).reduce((s,r)=>s+num(r.amount),0);
+  const salaryExpense=db.salaries.filter(r=>r.salaryMonth===m).reduce((s,r)=>s+num(r.netSalary),0);
+  const vehicleExpense=monthRows("vehicles",m).reduce((s,r)=>s+num(r.amount),0);
+  const excluded=new Set(["CASH PURCHASE","CREDIT PURCHASE","SALARY","VEHICLE EXPENSE"]);
+  const otherExpense=monthRows("daybook",m).filter(r=>r.side==="Payment"&&!excluded.has(r.category)).reduce((s,r)=>s+num(r.amount),0);
+  const grossProfit=salesRevenue-snap.cogs;
+  const netProfit=grossProfit-salaryExpense-vehicleExpense-otherExpense-snap.stockLoss;
+  return {salesRevenue,cogs:snap.cogs,grossProfit,salaryExpense,vehicleExpense,otherExpense,stockLoss:snap.stockLoss,netProfit,closingStockValue:Object.values(snap.state).reduce((s,r)=>s+num(r.value),0),snapshot:snap};
+}
+function renderDashboard(){const d=today(),m=d.slice(0,7),profit=profitForMonth(m),stock=stockSnapshot(d);$("dashTodayPurchase").textContent=money(db.purchases.filter(x=>x.date===d).reduce((s,r)=>s+num(r.amount),0));$("dashTodaySale").textContent=money(db.inventorySales.filter(x=>x.date===d).reduce((s,r)=>s+num(r.amount),0));$("dashClosingCash").textContent=money(cashForDate(d));$("dashVehicleExpense").textContent=money(db.vehicles.filter(x=>x.date===d).reduce((s,r)=>s+num(r.amount),0));$("dashDebtors").textContent=money(db.parties.filter(x=>x.type==="Debtor").reduce((s,r)=>s+Math.max(0,num(r.amount)-num(r.paidAmount)),0));$("dashCreditors").textContent=money(db.parties.filter(x=>x.type==="Creditor").reduce((s,r)=>s+Math.max(0,num(r.amount)-num(r.paidAmount)),0));$("dashMonthPurchase").textContent=money(db.purchases.filter(x=>x.date.startsWith(m)).reduce((s,r)=>s+num(r.amount),0));$("dashMonthSale").textContent=money(profit.salesRevenue);$("dashStockValue").textContent=money(Object.values(stock.state).reduce((s,r)=>s+num(r.value),0));$("dashMonthProfit").textContent=money(profit.netProfit);$("dashMonthProfit").className=profit.netProfit>=0?"positive":"negative";$("dashSalaryOutstanding").textContent=money(db.salaries.reduce((s,r)=>s+Math.max(0,num(r.netSalary)-num(r.paidAmount)),0));const rp=[...db.purchases].sort(sortDateDesc).slice(0,5);$("recentPurchases").innerHTML=rp.length?rp.map(r=>`<tr><td>${r.date}</td><td>${esc(r.billNo)}</td><td>${esc(r.item)}</td><td>${qty(r.qty)}</td><td>${money(r.amount)}</td></tr>`).join(""):empty(5,"No purchases yet.");const rc=[...db.customerLedger].sort(sortDateDesc).slice(0,5);$("recentCustomerLedger").innerHTML=rc.length?rc.map(r=>`<tr><td>${r.date}</td><td>${esc(r.customer)}</td><td>${esc(r.particular)}</td><td>${money(r.credit)}</td><td>${money(r.debit)}</td></tr>`).join(""):empty(5,"No customer ledger entries yet.")}
+
+// Reports
+function monthRows(key,m){return db[key].filter(r=>r.date?.startsWith(m))}
+function renderReports(){
+  const m=$("reportMonth").value||monthNow(),start=`${m}-01`,end=monthEndDate(m);
+  const p=monthRows("purchases",m),s=monthRows("inventorySales",m),d=monthRows("daybook",m),v=monthRows("vehicles",m),c=monthRows("customerLedger",m),sal=db.salaries.filter(r=>r.salaryMonth===m);
+  const receipts=d.filter(x=>x.side==="Receipt").reduce((a,r)=>a+num(r.amount),0),payments=d.filter(x=>x.side==="Payment").reduce((a,r)=>a+num(r.amount),0);
+  const dates=Object.keys(db.dayCash).filter(x=>x.startsWith(m)).sort(),closing=dates.length?cashForDate(dates[dates.length-1]):0;
+  const profitability=profitForMonth(m),before=stockBeforeMonth(m),snap=profitability.snapshot;
+  $("reportPurchaseValue").textContent=money(p.reduce((a,r)=>a+num(r.amount),0));$("reportSaleValue").textContent=money(profitability.salesRevenue);$("reportPurchaseQty").textContent=qty(p.reduce((a,r)=>a+num(r.qty),0));$("reportSaleQty").textContent=qty(s.reduce((a,r)=>a+num(r.qty),0));$("reportReceipts").textContent=money(receipts);$("reportPayments").textContent=money(payments);$("reportClosingCash").textContent=money(closing);$("reportVehicleExpense").textContent=money(profitability.vehicleExpense);$("reportCustomerBalance").textContent=money(c.reduce((a,r)=>a+num(r.credit)-num(r.debit),0));
+  $("reportCOGS").textContent=money(profitability.cogs);$("reportGrossProfit").textContent=money(profitability.grossProfit);$("reportSalaryExpense").textContent=money(profitability.salaryExpense);$("reportOtherExpense").textContent=money(profitability.otherExpense);$("reportStockLoss").textContent=money(profitability.stockLoss);$("reportNetProfit").textContent=money(profitability.netProfit);$("reportNetProfit").className=profitability.netProfit>=0?"positive":"negative";$("reportClosingStockValue").textContent=money(profitability.closingStockValue);
+  const items=[...new Set([...Object.keys(before.state),...Object.keys(snap.state),...p.map(r=>r.item),...s.map(r=>r.item),...db.stockAdjustments.filter(r=>r.date.startsWith(m)).map(r=>r.item)])].sort();
+  $("reportItemBody").innerHTML=items.length?items.map(item=>{const opening=before.state[item]?.qty||0,ac=snap.activity[item]||{},closingQty=snap.state[item]?.qty||0,closingValue=snap.state[item]?.value||0,avg=closingQty>0?closingValue/closingQty:0;return `<tr><td>${esc(item)}</td><td class="amount">${qty(opening)}</td><td class="amount">${qty(ac.purchaseQty||0)}</td><td class="amount">${qty(ac.manualNetQty||0)}</td><td class="amount">${qty(ac.saleQty||0)}</td><td class="amount">${qty(closingQty)}</td><td class="amount">${num(avg).toFixed(3)}</td><td class="amount">${money(closingValue)}</td><td class="amount">${money(ac.saleValue||0)}</td></tr>`}).join(""):empty(9,"No inventory activity for this month.");
+  $("reportSalaryBody").innerHTML=sal.length?sal.map(r=>`<tr><td>${esc(r.employee)}</td><td class="amount">${money(r.basic)}</td><td class="amount">${money(r.overtime)}</td><td class="amount">${money(r.allowance)}</td><td class="amount">${money(num(r.deduction)+num(r.advance))}</td><td class="amount">${money(r.netSalary)}</td><td class="amount">${money(r.paidAmount)}</td><td class="amount">${money(Math.max(0,num(r.netSalary)-num(r.paidAmount)))}</td></tr>`).join(""):empty(8,"No salary records for this month.");
+  const customers=[...new Set(c.map(r=>r.customer))].sort();$("reportCustomerBody").innerHTML=customers.length?customers.map(name=>{const rows=c.filter(r=>r.customer===name),cr=rows.reduce((a,r)=>a+num(r.credit),0),dr=rows.reduce((a,r)=>a+num(r.debit),0);return `<tr><td>${esc(name)}</td><td class="amount">${money(cr)}</td><td class="amount">${money(dr)}</td><td class="amount">${money(cr-dr)}</td></tr>`}).join(""):empty(4,"No customer ledger activity for this month.");
+  const catMap={};d.forEach(r=>{const k=r.side+"|"+r.category;catMap[k]=(catMap[k]||0)+num(r.amount)});$("reportDaybookBody").innerHTML=Object.keys(catMap).length?Object.entries(catMap).sort().map(([k,val])=>{const [side,cat]=k.split("|");return `<tr><td>${side}</td><td>${esc(cat)}</td><td class="amount">${money(val)}</td></tr>`}).join(""):empty(3,"No daybook activity for this month.");
+  const veh=[...new Set(v.map(r=>r.vehicleNo))].sort();$("reportVehicleBody").innerHTML=veh.length?veh.map(no=>{const rows=v.filter(r=>r.vehicleNo===no);return `<tr><td>${esc(no)}</td><td class="center">${rows.length}</td><td class="amount">${money(rows.reduce((a,r)=>a+num(r.amount),0))}</td></tr>`}).join(""):empty(3,"No vehicle expenses for this month.");
+  const parties=db.parties.filter(r=>Math.max(0,num(r.amount)-num(r.paidAmount))>0);$("reportPartyBody").innerHTML=parties.length?parties.map(r=>{const out=Math.max(0,num(r.amount)-num(r.paidAmount));return `<tr><td>${r.type}</td><td>${esc(r.name)}</td><td>${esc(r.billNo)}</td><td class="amount">${money(r.amount)}</td><td class="amount">${money(r.paidAmount)}</td><td class="amount">${money(out)}</td><td>${statusFor(r.amount,r.paidAmount)}</td></tr>`}).join(""):empty(7,"No outstanding creditor or debtor records.");
+}
+$("reportMonth").onchange=renderReports;$("printReport").onclick=()=>window.print();
+
+// Edit/delete delegation
+function setValues(map){Object.entries(map).forEach(([id,val])=>$(id).value=val??"")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(!b)return;const a=b.dataset.action,id=b.dataset.id;const del=(key,msg)=>{if(confirm(msg)){db[key]=db[key].filter(x=>x.id!==id);save("Record deleted.")}};
+  if(a==="edit-purchase"){const r=db.purchases.find(x=>x.id===id);setValues({purchaseId:r.id,purchaseBill:r.billNo,purchaseDate:r.date,purchaseType:normalizePurchaseType(r.purchaseType),purchaseSupplier:r.supplier||"",purchaseItem:r.item,purchaseQty:r.qty,purchaseRate:r.rate,purchaseAmount:r.amount,purchaseRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-purchase"&&confirm("Delete this purchase record?")){db.purchases=db.purchases.filter(x=>x.id!==id);rebuildPurchasePostings();save("Purchase deleted and Daybook updated.")}
+  if(a==="edit-inventory-sale"){const r=db.inventorySales.find(x=>x.id===id);setValues({inventorySaleId:r.id,inventorySaleBill:r.billNo,inventorySaleDate:r.date,inventorySaleType:normalizeSaleType(r.saleType),inventorySaleCustomer:r.customer||"",inventorySaleItem:r.item,inventorySaleQty:r.qty,inventorySaleRate:r.rate,inventorySaleAmount:r.amount,inventorySaleRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-inventory-sale"&&confirm("Delete this sale record?")){db.inventorySales=db.inventorySales.filter(x=>x.id!==id);rebuildPurchasePostings();save("Sale deleted and credit register updated.");}
+  if(a==="edit-customer-ledger"){const r=db.customerLedger.find(x=>x.id===id);setValues({customerLedgerId:r.id,customerName:r.customer,customerMobile:r.mobile,customerDate:r.date,customerVehicle:r.vehicleNo,customerDriver:r.driver,customerInvoice:r.invoiceNo,customerTicket:r.ticketNo,customerParticular:r.particular,customerWeight:r.weight,customerPrice:r.price,customerDeduction:r.deduction,customerDebit:r.debit,customerCredit:r.credit,customerRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-customer-ledger")del("customerLedger","Delete this customer ledger entry?");
+  if(a==="edit-daybook"){const r=db.daybook.find(x=>x.id===id);if(r.auto){toast(r.sourceType==="salary-ledger"?"This entry is controlled by Salaries Ledger.":"This entry is controlled by Inventory Purchase.");return}const l=r.side.toLowerCase();setValues({[l+"Id"]:r.id,[l+"Category"]:r.category,[l+"Amount"]:r.amount,[l+"Name"]:r.name,[l+"Remarks"]:r.remarks});}
+  if(a==="delete-daybook"){const r=db.daybook.find(x=>x.id===id);if(r?.auto){toast(r.sourceType==="salary-ledger"?"Delete or edit the salary record instead.":"Delete or edit the purchase entry instead.");return}del("daybook","Delete this daybook entry?")}
+  if(a==="edit-party"){const r=db.parties.find(x=>x.id===id);setValues({partyId:r.id,partyDate:r.date,partyBill:r.billNo,partyName:r.name,partyType:r.type,partyAmount:r.amount,partyPaidAmount:r.paidAmount,partyPaidDate:r.paidDate,partyPaymentBill:r.paymentBill,partyPaidName:r.paidName,partyRemarks:isAutomaticCreditRecord(r)?(r.userRemarks||""):r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-party"){const r=db.parties.find(x=>x.id===id);if(isAutomaticCreditRecord(r)){toast("Delete or change the original credit purchase or credit sale instead.");return}del("parties","Delete this creditor/debtor record?");}
+  if(a==="edit-vehicle"){const r=db.vehicles.find(x=>x.id===id);setValues({vehicleId:r.id,vehicleDate:r.date,vehicleNumber:r.vehicleNo,vehicleDriver:r.driver,vehicleCategory:r.category,vehicleParticulars:r.particulars,vehicleAmount:r.amount,vehicleRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-vehicle")del("vehicles","Delete this vehicle expense?");
+  if(a==="edit-stock-adjustment"){const r=db.stockAdjustments.find(x=>x.id===id);setValues({stockAdjustmentId:r.id,stockAdjustmentDate:r.date,stockAdjustmentItem:r.item,stockAdjustmentType:r.type,stockAdjustmentQty:r.qty,stockAdjustmentRate:r.rate,stockAdjustmentReference:r.reference,stockAdjustmentRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-stock-adjustment")del("stockAdjustments","Delete this manual stock adjustment?");
+  if(a==="edit-salary"){const r=db.salaries.find(x=>x.id===id);setValues({salaryId:r.id,salaryMonth:r.salaryMonth,salaryEmployee:r.employee,salaryEmployeeId:r.employeeId,salaryDesignation:r.designation,salaryBasic:r.basic,salaryOvertime:r.overtime,salaryAllowance:r.allowance,salaryDeduction:r.deduction,salaryAdvance:r.advance,salaryNet:r.netSalary,salaryPaid:r.paidAmount,salaryPaymentDate:r.paymentDate,salaryPaymentMethod:r.paymentMethod,salaryRemarks:r.remarks});scrollTo({top:0,behavior:"smooth"})}
+  if(a==="delete-salary"&&confirm("Delete this salary record?")){db.salaries=db.salaries.filter(x=>x.id!==id);rebuildSalaryPostings();save("Salary deleted and Daybook updated.")}
+});
+
+// CSV and backup
+function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
+function csv(rows){return rows.map(row=>row.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\n")}
+function exportKey(key){let rows,name;if(key==="purchases"){name="inventory-purchases.csv";rows=[["Bill No","Date","Purchase Type","Supplier / Name","Item","Qty","Rate","Amount","Remarks"],...db.purchases.map(r=>[r.billNo,r.date,normalizePurchaseType(r.purchaseType),r.supplier||"",r.item,r.qty,r.rate,r.amount,r.remarks])]}if(key==="inventorySales"){name="inventory-sales.csv";rows=[["Bill No","Date","Sale Type","Customer / Name","Item","Qty","Rate","Amount","Remarks"],...db.inventorySales.map(r=>[r.billNo,r.date,normalizeSaleType(r.saleType),r.customer||"",r.item,r.qty,r.rate,r.amount,r.remarks])]}if(key==="customerLedger"){name="customer-ledger.csv";rows=[["Customer","Mobile","Date","Vehicle","Driver","Invoice","Ticket","Particular","Weight","Price/Kg","Deduction","Debit","Credit","Remarks"],...db.customerLedger.map(r=>[r.customer,r.mobile,r.date,r.vehicleNo,r.driver,r.invoiceNo,r.ticketNo,r.particular,r.weight,r.price,r.deduction,r.debit,r.credit,r.remarks])]}if(key==="daybook"){name="daybook.csv";rows=[["Date","Side","Category","Amount","Name","Remarks"],...db.daybook.map(r=>[r.date,r.side,r.category,r.amount,r.name,r.remarks])]}if(key==="parties"){name="creditors-debtors.csv";rows=[["Date","Bill No","Name","Type","Amount","Paid Amount","Outstanding","Status","Paid Date","Payment Bill","Paid Name","Remarks"],...db.parties.map(r=>[r.date,r.billNo,r.name,r.type,r.amount,r.paidAmount,Math.max(0,num(r.amount)-num(r.paidAmount)),statusFor(r.amount,r.paidAmount),r.paidDate,r.paymentBill,r.paidName,r.remarks])]}if(key==="vehicles"){name="vehicle-expenses.csv";rows=[["Date","Vehicle","Driver","Category","Particulars","Amount","Remarks"],...db.vehicles.map(r=>[r.date,r.vehicleNo,r.driver,r.category,r.particulars,r.amount,r.remarks])]}if(key==="stock"){name="current-stock.csv";const snap=stockSnapshot($("stockAsOfDate").value||today());rows=[["Stock As Of",$("stockAsOfDate").value||today()],["Item","Closing Qty","Average Cost","Stock Value"],...Object.keys(snap.state).sort().map(item=>{const st=snap.state[item],avg=st.qty>0?st.value/st.qty:0;return [item,st.qty,avg,st.value]})]}if(key==="stockAdjustments"){name="stock-adjustments.csv";rows=[["Date","Item","Type","Qty","Cost Rate","Reference","Remarks"],...db.stockAdjustments.map(r=>[r.date,r.item,r.type,r.qty,r.rate,r.reference,r.remarks])]}if(key==="salaries"){name="salaries-ledger.csv";rows=[["Month","Employee","Employee ID","Designation","Basic","Overtime","Allowance","Deduction","Advance","Net Salary","Paid","Outstanding","Status","Payment Date","Payment Method","Remarks"],...db.salaries.map(r=>[r.salaryMonth,r.employee,r.employeeId,r.designation,r.basic,r.overtime,r.allowance,r.deduction,r.advance,r.netSalary,r.paidAmount,Math.max(0,num(r.netSalary)-num(r.paidAmount)),salaryStatus(r),r.paymentDate,r.paymentMethod,r.remarks])]}download(new Blob(["\ufeff"+csv(rows)],{type:"text/csv;charset=utf-8"}),name)}
+document.querySelectorAll("[data-export]").forEach(b=>b.onclick=()=>exportKey(b.dataset.export));
+$("exportMonthlyReport").onclick=()=>{const m=$("reportMonth").value||monthNow(),profit=profitForMonth(m),salaryRows=db.salaries.filter(r=>r.salaryMonth===m),snap=profit.snapshot;const rows=[["MALIK MONTHLY PROFIT & BUSINESS REPORT",m],["Sales Revenue",profit.salesRevenue],["Cost of Goods Sold",profit.cogs],["Gross Profit",profit.grossProfit],["Salary Expense",profit.salaryExpense],["Vehicle Expense",profit.vehicleExpense],["Other Operating Expense",profit.otherExpense],["Stock Loss / Damage",profit.stockLoss],["NET PROFIT",profit.netProfit],["Closing Stock Value",profit.closingStockValue],[],["STOCK SUMMARY"],["Item","Closing Qty","Average Cost","Closing Value"],...Object.keys(snap.state).sort().map(item=>{const st=snap.state[item],avg=st.qty>0?st.value/st.qty:0;return [item,st.qty,avg,st.value]}),[],["SALARIES"],["Employee","Basic","Overtime","Allowance","Deduction","Advance","Net Salary","Paid","Outstanding"],...salaryRows.map(r=>[r.employee,r.basic,r.overtime,r.allowance,r.deduction,r.advance,r.netSalary,r.paidAmount,Math.max(0,num(r.netSalary)-num(r.paidAmount))]),[],["PURCHASES"],["Date","Bill","Type","Supplier","Item","Qty","Rate","Amount"],...monthRows("purchases",m).map(r=>[r.date,r.billNo,r.purchaseType,r.supplier,r.item,r.qty,r.rate,r.amount]),[],["SALES"],["Date","Bill","Sale Type","Customer / Name","Item","Qty","Rate","Amount"],...monthRows("inventorySales",m).map(r=>[r.date,r.billNo,normalizeSaleType(r.saleType),r.customer||"",r.item,r.qty,r.rate,r.amount])];download(new Blob(["\ufeff"+csv(rows)],{type:"text/csv;charset=utf-8"}),`monthly-profit-report-${m}.csv`)};
+$("downloadBackup").onclick=()=>download(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),`malik-business-backup-${today()}.json`);
+$("restoreBackup").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const restored=JSON.parse(await f.text());["purchases","inventorySales","customerLedger","daybook","parties","vehicles"].forEach(k=>{if(!Array.isArray(restored[k]))throw new Error()});if(confirm("Replace current data with this backup?")){db={...blank,...restored};save("Backup restored.")}}catch{alert("Invalid backup file.")}e.target.value=""};
+$("clearAllData").onclick=()=>{if(confirm("Delete all business data? Download a backup first if needed.")){db=structuredClone(blank);save("All data cleared.")}};
+
+function renderAll(){setDefaults();renderPurchases();renderInventorySales();renderCustomerLedger();loadCashInputs();renderDaybook();renderParties();renderVehicles();renderStock();renderSalaries();renderDashboard();renderReports()}
+rebuildPurchasePostings();rebuildSalaryPostings();syncClosedCashCarry();localStorage.setItem(KEY,JSON.stringify(db));renderAll();
+})();
+</script>
+</body>
+</html>
